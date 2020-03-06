@@ -1,8 +1,19 @@
+import json
+import os
 import nltk
 
 from nltk import WordNetLemmatizer
 
 from src.preprocessing.word_prunner import WordPrunner
+
+
+def preprocess_folder(input_folder_path: str, output_persistence_path):
+    preprocessor = Preprocessor()
+
+    for file in os.listdir(input_folder_path):
+        if file.endswith(".txt"):
+            preprocessor.read_file(input_folder_path + file)
+    preprocessor.persist(output_persistence_path)
 
 
 class Preprocessor:
