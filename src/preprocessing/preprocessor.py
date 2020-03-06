@@ -1,4 +1,5 @@
 import nltk
+
 from nltk import WordNetLemmatizer
 
 from src.preprocessing.word_prunner import WordPrunner
@@ -10,18 +11,23 @@ class Preprocessor:
         self.lemmatiser = WordNetLemmatizer()
         self.prunner = WordPrunner()
 
-    def read_file(self, path):
+    def read_file(self, path: str):
         with open(path, 'r') as file:
             line = " "
             while line:
                 line = file.readline()
-                for word in self.prunner.prune(nltk.word_tokenize(line)):
+                tokens = self.prunner.prune(nltk.word_tokenize(line))
+                for word in tokens:
                     self.add_word(word)
 
     def add_word(self, term: str):
         # change case to lower
-        term = self.lemmatiser.lemmatize(term.lower())
+        word = self.lemmatiser.lemmatize(term)
         # add to words
-        if term not in self.words:
-            self.words[term] = 0
-        self.words[term] += 1
+        if word not in self.words:
+            self.words[word] = 0
+        self.words[word] += 1
+
+    def persist(self, path: str):
+        with open(path, 'w') as file:
+            json.dump(self.words, file)

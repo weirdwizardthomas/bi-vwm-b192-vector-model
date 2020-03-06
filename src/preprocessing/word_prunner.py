@@ -9,4 +9,5 @@ class WordPrunner:
 
     def prune(self, tokens: list) -> list:
         # remove stop words and punctuation
+        tokens = [tokens.lower() for tokens in tokens]
         return [term for term in tokens if term.isalpha() and term not in self.stop_words]
