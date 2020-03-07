@@ -87,10 +87,12 @@ class Preprocessor:
         with open(path, 'r') as file:
             line = " "
             while line:
-                line = file.readline()
-                tokens = self.prunner.prune(nltk.word_tokenize(line))
-                for word in tokens:
-                    self.__add_word(self.lemmatise(word))
+                try:
+                    line = file.readline()
+                    for word in self.prunner.prune(nltk.word_tokenize(line)):
+                        self.__add_term(self.lemmatise(word))
+                except UnicodeDecodeError:
+                    pass
         self.__update_frequencies()
         return path, self.terms
 
@@ -100,7 +102,7 @@ class Preprocessor:
     def get_most_frequent_words(self) -> dict:
         return self.terms_highest_frequencies
 
-    def __add_word(self, term: str):
+    def __add_term(self, term: str):
         """
         Adds a term to the document's dictionary
         :param term: Term to be added
