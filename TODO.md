@@ -6,3 +6,6 @@ Aplikace by měla obsahovat:
 * [ ] Implementace indexovací struktury.
 * [ ] Vyhodnocení dotazu oproti indexovací struktuře.
 * [ ] Webový interface (zadání dotazu a vizualizace výsledku).
+
+Work to do:
+*[ ] Structure repository according to these guidelines: https://github.com/navdeep-G/samplemod
