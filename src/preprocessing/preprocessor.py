@@ -13,13 +13,15 @@ def preprocess_collection(input_folder_path: str, output_persistence_path):
     :param output_persistence_path: path to the output persistence file
     :return: None
     """
-    documents = __parse_collection(input_folder_path)
+    documents, frequencies = __parse_collection(input_folder_path)
 
-    with open(output_persistence_path, 'w') as file:
+    with open(output_persistence_path + 'documents.json', 'w') as file:
         json.dump(documents, file)
+    with open(output_persistence_path + 'most_frequent_words.json', 'w') as file:
+        json.dump(frequencies, file)
 
 
-def __parse_collection(input_folder_path: str) -> dict:
+def __parse_collection(input_folder_path: str) -> (dict, dict):
     """
     Parses all text files in the input_folder_path
     :param input_folder_path: path to the document collection to parse
@@ -27,15 +29,19 @@ def __parse_collection(input_folder_path: str) -> dict:
     """
     preprocessor = Preprocessor()
     documents = {}
+    index = 1
+    max_index = len(os.listdir(input_folder_path))
     for file in os.listdir(input_folder_path):
+        print("[Processing file", index, "/", max_index, "]", file)
+        index += 1
         if file.endswith(".txt"):
             path, words = preprocessor.process_file(input_folder_path + file)
             documents[path] = words
 
-    return documents
+    return documents, preprocessor.get_most_frequent_words()
 
 
-def load_documents(path: str):
+def load_documents(path: str) -> dict:
     """
     Loads processed documents from a persistence file
     :param path: Path to the persistence file
@@ -50,12 +56,14 @@ class Preprocessor:
 
     Attributes
     ----------
-    words: dict
+    terms: dict
         Dictionary of terms and their frequencies in the parsed document
     lemmatiser: WordNetLemmatizer
         Tool that lemmatises the document
     prunner:WordPrunner
         Tool that removes stop words, punctuation & other redundant terms from the document
+    terms_highest_frequencies: dict
+        Dictionary of terms and their highest frequency in the collection
 
     Methods
     -------
@@ -64,9 +72,10 @@ class Preprocessor:
     """
 
     def __init__(self):
-        self.words = {}
+        self.terms = {}
         self.lemmatiser = WordNetLemmatizer()
         self.prunner = WordPrunner()
+        self.terms_highest_frequencies = {}
 
     def process_file(self, path: str) -> (str, dict):
         """
@@ -74,15 +83,22 @@ class Preprocessor:
         :param path: path to the document to open
         :return: tuple of document path & dictionary of terms and their frequencies
         """
-        self.words = {}  # reset
+        self.terms = {}  # reset
         with open(path, 'r') as file:
             line = " "
             while line:
                 line = file.readline()
                 tokens = self.prunner.prune(nltk.word_tokenize(line))
                 for word in tokens:
-                    self.__add_word(word)
-        return path, self.words
+                    self.__add_word(self.lemmatise(word))
+        self.__update_frequencies()
+        return path, self.terms
+
+    def lemmatise(self, word):
+        return self.lemmatiser.lemmatize(word)
+
+    def get_most_frequent_words(self) -> dict:
+        return self.terms_highest_frequencies
 
     def __add_word(self, term: str):
         """
@@ -90,9 +106,20 @@ class Preprocessor:
         :param term: Term to be added
         :return: None
         """
-        # change case to lower
-        word = self.lemmatiser.lemmatize(term)
-        # add to words
-        if word not in self.words:
-            self.words[word] = 0
-        self.words[word] += 1
+        # add to terms
+        if term not in self.terms:  # is a new term
+            self.terms[term] = 0
+        self.terms[term] += 1
+
+    def __update_frequencies(self):
+        """
+        Updates all frequencies to contain the highest current frequency of a given term
+        If the frequency of a term in the currently processed document is higher than the current highest, replace it
+        :return: None
+        """
+        for term in self.terms:
+            if term not in self.terms_highest_frequencies:  # is a new word
+                self.terms_highest_frequencies[term] = self.terms[term]
+
+            if self.terms_highest_frequencies[term] < self.terms[term]:
+                self.terms_highest_frequencies[term] = self.terms[term]
