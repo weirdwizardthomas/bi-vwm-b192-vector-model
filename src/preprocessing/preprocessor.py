@@ -1,9 +1,8 @@
 import json
 import os
-
 import nltk
-from nltk import WordNetLemmatizer
 
+from nltk import WordNetLemmatizer
 from src.preprocessing.word_prunner import WordPrunner
 
 
@@ -14,13 +13,13 @@ def preprocess_collection(input_folder_path: str, output_persistence_path):
     :param output_persistence_path: path to the output persistence file
     :return: None
     """
-    documents = parse_collection(input_folder_path)
+    documents = __parse_collection(input_folder_path)
 
     with open(output_persistence_path, 'w') as file:
         json.dump(documents, file)
 
 
-def parse_collection(input_folder_path: str) -> dict:
+def __parse_collection(input_folder_path: str) -> dict:
     """
     Parses all text files in the input_folder_path
     :param input_folder_path: path to the document collection to parse
