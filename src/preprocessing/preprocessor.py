@@ -1,11 +1,11 @@
 import json
 import os
-import nltk
 
+import nltk
 from nltk import WordNetLemmatizer
 
-from src.preprocessing.document import Document
-from src.preprocessing.document_encoder import DocumentEncoder
+from src import document
+from src.document import Document
 from src.preprocessing.word_prunner import WordPrunner
 
 
@@ -17,7 +17,7 @@ def preprocess_folder(input_folder_path: str, output_persistence_path):
             documents.append(preprocessor.read_file(input_folder_path + file))
 
     with open(output_persistence_path, 'w') as file:
-        json.dump(documents, file, cls=DocumentEncoder)
+        json.dump(documents, file, cls=document.Encoder)
 
 
 class Preprocessor:
