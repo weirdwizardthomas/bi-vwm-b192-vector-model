@@ -3,6 +3,8 @@ import os
 import nltk
 
 from nltk import WordNetLemmatizer
+
+from src.preprocessing.database.database import Database
 from src.preprocessing.word_prunner import WordPrunner
 
 
@@ -13,32 +15,28 @@ def preprocess_collection(input_folder_path: str, output_persistence_path):
     :param output_persistence_path: path to the output persistence file
     :return: None
     """
-    documents, frequencies = __parse_collection(input_folder_path)
+    frequencies = __parse_collection(input_folder_path)
 
-    with open(output_persistence_path + 'documents.json', 'w') as file:
-        json.dump(documents, file)
     with open(output_persistence_path + 'most_frequent_words.json', 'w') as file:
         json.dump(frequencies, file)
 
 
-def __parse_collection(input_folder_path: str) -> (dict, dict):
+def __parse_collection(input_folder_path: str) -> dict:
     """
     Parses all text files in the input_folder_path
     :param input_folder_path: path to the document collection to parse
     :return: dictionary, where key: file path, value: dictionary of terms and their frequencies
     """
     preprocessor = Preprocessor()
-    documents = {}
     index = 1
     max_index = len(os.listdir(input_folder_path))
     for file in os.listdir(input_folder_path):
         print("[Processing file", index, "/", max_index, "]", file)
         index += 1
         if file.endswith(".txt"):
-            path, words = preprocessor.process_file(input_folder_path + file)
-            documents[path] = words
+            preprocessor.process_file(input_folder_path + file)
 
-    return documents, preprocessor.get_most_frequent_words()
+    return preprocessor.get_most_frequent_words()
 
 
 def load_documents(path: str) -> dict:
@@ -77,13 +75,21 @@ class Preprocessor:
         self.prunner = WordPrunner()
         self.terms_highest_frequencies = {}
 
-    def process_file(self, path: str) -> (str, dict):
+    def process_file(self, path: str):
         """
         Reads a document from file and processes it into terms and their frequencies
         :param path: path to the document to open
         :return: tuple of document path & dictionary of terms and their frequencies
         """
         self.terms = {}  # reset
+        try:
+            self.__process_terms(path)
+            self.__update_frequencies()
+            self.__persist(path)
+        except FileNotFoundError:
+            pass
+
+    def __process_terms(self, path):
         with open(path, 'r') as file:
             line = " "
             while line:
@@ -93,8 +99,6 @@ class Preprocessor:
                         self.__add_term(self.lemmatise(word))
                 except UnicodeDecodeError:
                     pass
-        self.__update_frequencies()
-        return path, self.terms
 
     def lemmatise(self, word):
         return self.lemmatiser.lemmatize(word)
@@ -125,3 +129,15 @@ class Preprocessor:
 
             if self.terms_highest_frequencies[term] < self.terms[term]:
                 self.terms_highest_frequencies[term] = self.terms[term]
+
+    def __persist(self, input_file):
+        database = Database('../../data/persistence/db')
+        database.execute('''INSERT OR IGNORE INTO Document(filename) VALUES (?)''', [input_file])
+        database.commit()
+        document_key = database.last_primary_key()
+        for term in self.terms:
+            database.execute('''INSERT OR IGNORE INTO Term(value) VALUES (?)''', [term])
+            term_key = database.last_primary_key()
+            database.execute('''INSERT INTO TermDocumentOccurrence(Term_id, Document_id, count) VALUES (?,?,?)''',
+                             [term_key, document_key, self.terms[term]])
+        database.commit()

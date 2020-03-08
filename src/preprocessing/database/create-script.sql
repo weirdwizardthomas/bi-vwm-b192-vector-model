@@ -1,0 +1,23 @@
+CREATE TABLE Document
+(
+    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    filename TEXT NOT NULL
+);
+
+CREATE TABLE Term
+(
+    id    INTEGER PRIMARY KEY AUTOINCREMENT,
+    value TEXT NOT NULL
+);
+
+CREATE TABLE TermDocumentOccurrence
+(
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    Term_id     INTEGER UNSIGNED NOT NULL,
+    Document_id INTEGER UNSIGNED NOT NULL,
+    count       INTEGER UNSIGNED NOT NULL,
+    FOREIGN KEY (Document_id) REFERENCES Document (id),
+    FOREIGN KEY (Term_id) REFERENCES Term (id)
+);
+
+
