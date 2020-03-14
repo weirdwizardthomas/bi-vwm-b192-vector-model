@@ -1,0 +1,11 @@
+# Požadavky
+- kompilátor podporující minimálně C++ 11
+- vytvořit adresář ```lib``` v kořenovém adresáři projektu pro následující knihovny
+- knihovna pro práci s SQLite:
+  - ke stažení [ZDE](https://github.com/SRombauts/SQLiteCpp/releases)
+  - rozbalit do adresáře ```lib``` a složku přejmenovat na ```SQLiteCpp```
+- knihovna pro práci s JSON soubory:
+  - ke stažení [ZDE](https://github.com/nlohmann/json/releases)
+  - stačí stáhnout hlavičkový soubor ```json.hpp``` a umístit ho do adresáře ```lib```
+- pro sestavení lze využít skript ```src/weight_calculation/build.sh```
+- binárka se poté nachází v ```src/weight_calculation/build/main```, je nutné ji spustit z adresáře ```build```
