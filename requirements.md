@@ -7,5 +7,5 @@
 - knihovna pro práci s JSON soubory:
   - ke stažení [ZDE](https://github.com/nlohmann/json/releases)
   - stačí stáhnout hlavičkový soubor ```json.hpp``` a umístit ho do adresáře ```lib```
-- pro sestavení lze využít skript ```src/weight_calculation/build.sh```
-- binárka se poté nachází v ```src/weight_calculation/build/main```, je nutné ji spustit z adresáře ```build```
+- pro sestavení lze využít skript ```build.sh```
+- binárka se poté nachází v ```build/main```, je nutné ji spustit z adresáře ```build```

@@ -41,7 +41,7 @@ bool process(std::ofstream & ostream, const json & maxOccurrences)
 {
     try
     {
-        SQLite::Database db("./../../../data/persistance/db", SQLite::OPEN_READWRITE|SQLite::OPEN_CREATE);
+        SQLite::Database db("./../data/persistance/db", SQLite::OPEN_READWRITE|SQLite::OPEN_CREATE);
         SQLite::Statement query(db, "SELECT value FROM Term");
 
         while (query.executeStep())
@@ -60,8 +60,8 @@ bool process(std::ofstream & ostream, const json & maxOccurrences)
 
 int main (void)
 {
-    std::ifstream istream("./../../../data/persistance/most_frequent_words.json");
-    std::ofstream ostream("./../../../data/persistance/invertedList.json");
+    std::ifstream istream("./../data/persistance/most_frequent_words.json");
+    std::ofstream ostream("./../data/persistance/invertedList.json");
 
     if (istream.fail() || ostream.fail())
     {
