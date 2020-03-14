@@ -13,7 +13,6 @@ bool calculateWeight(SQLite::Database & db, std::ofstream & ostream, const json 
     uint32_t occurrences;
     double weight;
     maxOccurrences[term].get_to(occurrences);
-    bool firstOccurrence = true;
 
     try
     {
@@ -26,14 +25,12 @@ bool calculateWeight(SQLite::Database & db, std::ofstream & ostream, const json 
         ostream << "\"" << term << "\":{";
         while(query.executeStep())
         {
-            if (!firstOccurrence)
-                ostream << ",";
-            firstOccurrence = false;
-
             weight = query.getColumn("count").getInt() / (occurrences*1.0);
-            ostream << "\"" << query.getColumn("Document_id") << "\":" << std::setprecision(20) << weight;
+            ostream << "\"" << query.getColumn("Document_id") << "\":" << std::setprecision(20) << weight << ",";
         }
-        ostream << "}";
+
+        ostream.seekp(-1, std::ios_base::end);
+        ostream << "},";
     }
 
     catch(const std::exception& e)
@@ -51,19 +48,13 @@ bool process(std::ofstream & ostream, const json & maxOccurrences)
     {
         SQLite::Database db("./../data/persistance/db", SQLite::OPEN_READWRITE|SQLite::OPEN_CREATE);
         SQLite::Statement query(db, "SELECT value FROM Term");
-        bool firstTerm = true;
 
         ostream << "{";
         while (query.executeStep())
-        {
-            if(!firstTerm)
-                ostream << ",";
-            firstTerm = false;
-
             if(!calculateWeight(db, ostream, maxOccurrences, query.getColumn("value")))
                 return false;
-        }
 
+        ostream.seekp(-1, std::ios_base::end);
         ostream << "}";
     }
 
