@@ -2,8 +2,8 @@ Aplikace by měla obsahovat:
 * [X] Extrakce termů.
 * [X] Identifikace nevýznamových slov.
 * [X] Stemming/lematizace.
-* [ ] Výpočet vah termů.
-* [ ] Implementace indexovací struktury.
+* [x] Výpočet vah termů.
+* [x] Implementace indexovací struktury.
 * [ ] Vyhodnocení dotazu oproti indexovací struktuře.
 * [ ] Webový interface (zadání dotazu a vizualizace výsledku).
 

@@ -16,7 +16,7 @@ bool calculateWeight(SQLite::Database & db, std::ofstream & ostream, const json 
 
     try
     {
-        SQLite::Statement query(db, "SELECT * FROM TermDocumentOccurrence "
+        SQLite::Statement query(db, "SELECT TermDocumentOccurrence.Document_id, TermDocumentOccurrence.count FROM TermDocumentOccurrence "
                                         "JOIN Term ON TermDocumentOccurrence.Term_id = Term.id "
                                         "WHERE Term.value = :term "
                                         "ORDER BY TermDocumentOccurrence.Document_id ASC");
