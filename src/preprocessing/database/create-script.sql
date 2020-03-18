@@ -1,13 +1,13 @@
 CREATE TABLE Document
 (
     id       INTEGER PRIMARY KEY AUTOINCREMENT,
-    filename TEXT NOT NULL
+    filename TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE Term
 (
     id    INTEGER PRIMARY KEY AUTOINCREMENT,
-    value TEXT NOT NULL
+    value TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE TermDocumentOccurrence

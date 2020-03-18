@@ -131,7 +131,7 @@ class Preprocessor:
                 self.terms_highest_frequencies[term] = self.terms[term]
 
     def __persist(self, input_file):
-        database = Database('../../data/persistence/db')
+        database = Database('../../data/persistence/docs_and_terms.db')
         database.execute('''INSERT OR IGNORE INTO Document(filename) VALUES (?)''', [input_file])
         database.commit()
         document_key = database.last_primary_key()
