@@ -1,4 +1,7 @@
 # custom
+build/
+lib/
+cmake-build-debug/
 data/
 .idea/
 .vscode/
