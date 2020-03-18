@@ -137,7 +137,10 @@ class Preprocessor:
         document_key = database.last_primary_key()
         for term in self.terms:
             database.execute('''INSERT OR IGNORE INTO Term(value) VALUES (?)''', [term])
-            term_key = database.last_primary_key()
+            database.execute('''SELECT id FROM Term WHERE value = ?''', [term])
+            term_key = database.fetchone()[0]
+            if term_key is None:
+                term_key = database.last_primary_key()
             database.execute('''INSERT INTO TermDocumentOccurrence(Term_id, Document_id, count) VALUES (?,?,?)''',
                              [term_key, document_key, self.terms[term]])
         database.commit()

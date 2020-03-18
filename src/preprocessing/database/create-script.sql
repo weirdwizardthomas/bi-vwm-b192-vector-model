@@ -19,5 +19,3 @@ CREATE TABLE TermDocumentOccurrence
     FOREIGN KEY (Document_id) REFERENCES Document (id),
     FOREIGN KEY (Term_id) REFERENCES Term (id)
 );
-
-
