@@ -46,7 +46,7 @@ bool process(std::ofstream & ostream, const json & maxOccurrences)
 {
     try
     {
-        SQLite::Database db("./../data/persistance/db", SQLite::OPEN_READWRITE|SQLite::OPEN_CREATE);
+        SQLite::Database db("./../data/persistance/docs_and_terms.db", SQLite::OPEN_READWRITE|SQLite::OPEN_CREATE);
         SQLite::Statement query(db, "SELECT value FROM Term");
 
         ostream << "{";
