@@ -17,5 +17,6 @@ CREATE TABLE TermDocumentOccurrence
     Document_id INTEGER UNSIGNED NOT NULL,
     count       INTEGER UNSIGNED NOT NULL,
     FOREIGN KEY (Document_id) REFERENCES Document (id),
-    FOREIGN KEY (Term_id) REFERENCES Term (id)
+    FOREIGN KEY (Term_id) REFERENCES Term (id),
+    UNIQUE (Term_id, Document_id) ON CONFLICT REPLACE
 );
