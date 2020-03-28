@@ -10,7 +10,7 @@
 #include "../query/Query.h"
 
 /**
- * @brief Class representing the vector space of the collection
+ * @brief A class representing the vector space of the collection
  *
  * @author koristo1@fit.cvut.cz
  */
