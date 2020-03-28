@@ -14,8 +14,8 @@
 class Query {
 public:
     //Attributes-------------
-    const std::map<std::string, double> terms; /**<Terms and their weights in the query */
     const std::set<std::string> termsKeyset; /**<Keyset of terms */
+    const std::map<std::string, double> terms; /**<Terms and their weights in the query */
     const double threshold; /**<Acceptable result threshold */
 
     //Methods----------------
@@ -24,9 +24,9 @@ public:
      * @param terms Terms and their weights in the query
      * @param threshold Acceptable result threshold
      */
-    explicit Query(std::map<std::string, double> terms, double threshold);
+    explicit Query(std::map<std::string, double> t, double threshold);
 
-    static std::set<std::string> getKeyset(const std::map<std::string, double> &terms);
+    static std::set<std::string> getKeyset(const std::map<std::string, double> &t);
 };
 
 

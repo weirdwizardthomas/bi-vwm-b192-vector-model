@@ -4,50 +4,34 @@
 
 using namespace std;
 
-InvertedIndex::InvertedIndex(deque<DocumentWeight> documentWeights)
-        : documentWeights(move(documentWeights)) {}
-
+InvertedIndex::InvertedIndex(deque<Document> documentWeights)
+        : documents(move(documentWeights)) {}
 
 double InvertedIndex::getDocumentWeightByID(int ID) {
+    Document document{};
 
-    if (position + 1 == documentWeights.size())
+    if (documents.empty())
         throw EndOfIndexException();
 
-
-    while (documentWeights.front().getID() != ID) {
-        documentWeights.pop_front();
-    }
-    return documentWeights.front().getID();
-
-    for (auto it = documentWeights.begin() + position; it != documentWeights.end(); it++) {
-        int documentID = (*it).getID();
-
-        if (documentID < ID)
+    while ((document = documents.front()).getID() != ID) {
+        if (documents.empty()) //end of the index; index is exhausted
+            throw EndOfIndexException();
+        if (document.getID() > ID) // IDs are sorted asc, i.e. if doc ID is higher, then the ID for is not in index
             throw IDNotFoundException();
-
-        if (documentID == ID) //match!
-            return (*it).getWeight();
+        documents.pop_front();
     }
 
-    throw IDNotFoundException();
+    documents.pop_front();
+    return document.getWeight();
 }
 
-const DocumentWeight &InvertedIndex::operator[](size_t i) {
-    return documentWeights[i];
+const Document &InvertedIndex::operator[](size_t i) {
+    return documents[i];
 }
 
 int InvertedIndex::getLowestID() const {
-    return documentWeights.front().getID();
+    return documents.front().getID();
 }
 
-void InvertedIndex::forward(int ID) {
-    auto it = documentWeights.begin() + position;
 
-    while (it != documentWeights.end() && (*it).getID() != ID) {
-        if (ID < (*it).getID())
-            return;
-        position++;
-        it++;
-    }
-}
 

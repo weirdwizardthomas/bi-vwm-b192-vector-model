@@ -11,9 +11,9 @@ int main() {
     Space space(InputParser("../../data/persistence/dummy.json").getInvertedIndices());
 
     Query query({
-                        {"forest",   0.5},
-                        {"mountain", 0.4},
-                        {"nature",   0.3}}, 0);
+                        {"forest",   0.2},
+                        {"mountain", 0.1},
+                        {"nature",   0.8}}, 0.5);
 
     auto res = Computor(space, query).compute();
     for (const auto &[id, value]: res)

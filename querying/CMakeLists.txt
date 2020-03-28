@@ -7,6 +7,6 @@ add_subdirectory(lib/SQLiteCpp)
 
 SET(CMAKE_CXX_FLAGS "-g -Wall -pedantic -Wextra")
 
-add_executable(main src/main.cpp src/inverted_index/InvertedIndex.cpp src/inverted_index/InvertedIndex.h src/inverted_index/InputParser.cpp src/inverted_index/InputParser.h src/space/Space.cpp src/space/Space.h src/space/Query.cpp src/space/Query.h src/Computor.cpp src/Computor.h src/DocumentWeight.cpp src/DocumentWeight.h src/exceptions/Exceptions.h)
+add_executable(main src/main.cpp src/inverted_index/InvertedIndex.cpp src/inverted_index/InvertedIndex.h src/inverted_index/InputParser.cpp src/inverted_index/InputParser.h src/space/Space.cpp src/space/Space.h src/space/Query.cpp src/space/Query.h src/Computor.cpp src/Computor.h src/Document.cpp src/Document.h src/exceptions/Exceptions.h)
 
 target_link_libraries(main SQLiteCpp)

@@ -5,6 +5,7 @@
 #include "InputParser.h"
 
 #include <utility>
+#include <deque>
 #include "../../lib/json.hpp"
 
 using namespace std;
@@ -17,7 +18,7 @@ map<string, InvertedIndex> InputParser::getInvertedIndices() {
     json root = loadJsonFromFile();
     map<string, InvertedIndex> invertedIndices;
     for (const auto &[term, documentIDs]: root.items()) {
-        vector<DocumentWeight> weights;
+        deque<Document> weights;
 
         for (const auto &[documentID, weight] :  documentIDs.items())
             weights.emplace_back(stoi(documentID), weight);

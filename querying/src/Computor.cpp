@@ -8,7 +8,6 @@ using namespace std;
 
 Computor::Computor(Space space, Query query) : space(std::move(space)), query(std::move(query)) {}
 
-
 map<int, double> Computor::compute() {
     map<int, double> results;
 
@@ -18,10 +17,10 @@ map<int, double> Computor::compute() {
         int ID = nextID(); //get lowest ID
         double result = 0;
 
-        for (const auto &term: availableTerms) /*Go through all the remaining terms*/ {
+        for (const auto& term: availableTerms) /*Go through all the remaining terms*/ {
             try {
-                double queryWeight = query.terms.at(term);
                 double documentWeight = space.getInvertedIndexByKey(term).getDocumentWeightByID(ID);
+                double queryWeight = query.terms.at(term);
                 result += documentWeight * queryWeight;
             }
             catch (const IDNotFoundException &e) {//inverted index does not contain given ID
@@ -31,7 +30,8 @@ map<int, double> Computor::compute() {
                 availableTerms.erase(term); //exhaust term
             }
         }
-        results[ID] = result;
+        if(result > query.threshold)
+            results[ID] = result;
     }
 
     return results;
@@ -40,8 +40,8 @@ map<int, double> Computor::compute() {
 int Computor::nextID() {
     int lowestID = INT_MAX;
 
-    for (const auto &queryRecord: query.terms)
-        lowestID = min(space[queryRecord.first].getLowestID(), lowestID);
+    for (const auto &term: availableTerms)
+        lowestID = min(space[term].getLowestID(), lowestID);
 
     return lowestID;
 }
