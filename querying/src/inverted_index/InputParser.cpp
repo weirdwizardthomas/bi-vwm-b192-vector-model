@@ -25,7 +25,7 @@ map<string, InvertedIndex> InputParser::getInvertedIndices() {
         sort(weights.begin(), weights.end(),
              [](const auto &a, const auto &b) { return a.getID() < b.getID(); });
 
-        invertedIndices.insert({term, InvertedIndex(term, weights)});
+        invertedIndices.emplace(term, InvertedIndex(weights));
     }
 
     return invertedIndices;

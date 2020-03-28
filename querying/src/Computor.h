@@ -14,15 +14,15 @@ private:
     //Attributes--------------
     Space space;
     const Query query;
-    std::set<std::string> exhaustedIndices;
+    std::set<std::string> availableTerms;
 
     //Methods-----------------
-    int nextID() const;
+    int nextID();
 
     double computeForDocument(int ID);
 
 public:
-    Computor(Space space, const Query &query);
+    Computor(Space space, Query query);
 
     std::map<int, double> compute();
 };

@@ -3,7 +3,7 @@
 
 
 #include <string>
-#include <vector>
+#include <deque>
 #include "../DocumentWeight.h"
 
 /**
@@ -14,19 +14,16 @@
 class InvertedIndex {
 private:
     //Attributes-------------
-    size_t position;
-    std::string term;/**<Term identifier */
-    std::vector<DocumentWeight> documentWeights; /**<Inverted index list of documents & their weights in which the term appears */
+    std::deque<DocumentWeight> documentWeights; /**<Inverted index list of documents & their weights in which the term appears */
 
 public:
 
     //Methods-----------------
     /**
      * Constructor
-     * @param term Term identifier
      * @param documentWeights Inverted index list of documents in which the term appears, and their weights
      */
-    InvertedIndex(std::string term, std::vector<DocumentWeight> documentWeights);
+    InvertedIndex(std::deque<DocumentWeight> documentWeights);
 
     /**
      * @brief Finds the @ref DocumentWeight object with a given @ref DocumentWeight::ID in @ref documentWeights
@@ -41,8 +38,6 @@ public:
     double getDocumentWeightByID(int ID);
 
     int getLowestID() const;
-
-    void forward(int ID);
 
     const DocumentWeight &operator[](size_t i);
 };

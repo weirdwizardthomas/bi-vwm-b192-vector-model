@@ -6,5 +6,14 @@
 
 using namespace std;
 
-Query::Query(std::map<std::string, double> terms, const double threshold)
-        : terms(std::move(terms)), threshold(threshold) {}
+Query::Query(std::map<std::string, double> terms, double threshold)
+        : terms(std::move(terms)),
+          termsKeyset(getKeyset(terms)),
+          threshold(threshold) {}
+
+set<string> Query::getKeyset(const map<std::string, double> &terms) {
+    set<string> dummy;
+    for (const auto &term: terms)
+        dummy.emplace(term.first);
+    return dummy;
+}

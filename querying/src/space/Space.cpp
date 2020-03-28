@@ -17,7 +17,7 @@ InvertedIndex &Space::getInvertedIndexByKey(const string &key) {
     return terms.at(key);
 }
 
-void Space::forward(int ID, const std::map<std::string, double> q) {
+void Space::forward(int ID, const std::map<std::string, double> &q) {
     for (const auto &term: q)
         terms.at(term.first).forward(ID);
 }

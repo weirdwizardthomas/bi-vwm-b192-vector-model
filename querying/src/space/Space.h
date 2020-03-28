@@ -32,7 +32,7 @@ public:
 
     const InvertedIndex &operator[](const std::string &key) const;
 
-    void forward(int ID, const std::map<std::string, double> q);
+    void forward(int ID, const std::map<std::string, double> &q);
 };
 
 
