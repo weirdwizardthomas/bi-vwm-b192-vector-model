@@ -1,0 +1,4 @@
+from config import SAMPLE_FOLDER_PATH
+from preprocessor import preprocess_collection
+
+preprocess_collection(SAMPLE_FOLDER_PATH)

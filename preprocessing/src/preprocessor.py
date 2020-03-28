@@ -4,20 +4,22 @@ import nltk
 
 from nltk import WordNetLemmatizer
 
-from src.preprocessing.database.database import Database
-from src.preprocessing.word_prunner import WordPrunner
+from database.database import Database
+from config import DATABASE_FILE, OUTPUT_PERSISTENCE_PATH, WORD_HIGHEST_FREQUENCY_FILE
+from word_prunner import WordPrunner
 
 
-def preprocess_collection(input_folder_path: str, output_persistence_path):
+def preprocess_collection(input_folder_path: str):
     """
     Parses and saves all documents from input_folder_path to output_persistence_path
     :param input_folder_path: path to the document collection to parse
     :param output_persistence_path: path to the output persistence file
     :return: None
     """
+    Database(OUTPUT_PERSISTENCE_PATH + DATABASE_FILE).drop()
     frequencies = __parse_collection(input_folder_path)
 
-    with open(output_persistence_path + 'most_frequent_words.json', 'w') as file:
+    with open(OUTPUT_PERSISTENCE_PATH + WORD_HIGHEST_FREQUENCY_FILE, 'w') as file:
         json.dump(frequencies, file)
 
 
@@ -131,7 +133,7 @@ class Preprocessor:
                 self.terms_highest_frequencies[term] = self.terms[term]
 
     def __persist(self, input_file):
-        database = Database('../../data/persistence/docs_and_terms.db')
+        database = Database(OUTPUT_PERSISTENCE_PATH + DATABASE_FILE)
         database.execute('''INSERT OR IGNORE INTO Document(filename) VALUES (?)''', [input_file])
         database.commit()
         document_key = database.last_primary_key()

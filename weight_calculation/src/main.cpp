@@ -4,7 +4,8 @@
 #include <string>
 
 #include <SQLiteCpp/SQLiteCpp.h>
-#include "../../lib/json.hpp"
+
+#include "../lib/json.hpp"
 
 using json = nlohmann::json;
 
@@ -17,9 +18,9 @@ bool calculateWeight(SQLite::Database & db, std::ofstream & ostream, const json 
     try
     {
         SQLite::Statement query(db, "SELECT TermDocumentOccurrence.Document_id, TermDocumentOccurrence.count FROM TermDocumentOccurrence "
-                                        "JOIN Term ON TermDocumentOccurrence.Term_id = Term.id "
-                                        "WHERE Term.value = :term "
-                                        "ORDER BY TermDocumentOccurrence.Document_id ASC");
+                                    "JOIN Term ON TermDocumentOccurrence.Term_id = Term.id "
+                                    "WHERE Term.value = :term "
+                                    "ORDER BY TermDocumentOccurrence.Document_id ASC");
         query.bind(":term", term);
 
         ostream << "\"" << term << "\":{";
@@ -46,7 +47,7 @@ bool process(std::ofstream & ostream, const json & maxOccurrences)
 {
     try
     {
-        SQLite::Database db("./../data/persistance/db", SQLite::OPEN_READWRITE|SQLite::OPEN_CREATE);
+        SQLite::Database db("./../../data/persistence/docs_and_terms.db", SQLite::OPEN_READWRITE|SQLite::OPEN_CREATE);
         SQLite::Statement query(db, "SELECT value FROM Term");
 
         ostream << "{";
@@ -69,8 +70,8 @@ bool process(std::ofstream & ostream, const json & maxOccurrences)
 
 int main (void)
 {
-    std::ifstream istream("./../data/persistance/most_frequent_words.json");
-    std::ofstream ostream("./../data/persistance/invertedList.json");
+    std::ifstream istream("./../../data/persistence/most_frequent_words.json");
+    std::ofstream ostream("./../../data/persistence/invertedList.json");
 
     if (istream.fail() || ostream.fail())
     {

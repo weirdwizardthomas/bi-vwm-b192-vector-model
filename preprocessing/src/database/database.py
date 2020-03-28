@@ -43,3 +43,9 @@ class Database:
 
     def last_primary_key(self):
         return self.cursor.lastrowid
+
+    def drop(self):
+        self.execute('DELETE FROM TermDocumentOccurrence')
+        self.execute('DELETE FROM Term')
+        self.execute('DELETE FROM Document')
+        self.connection.commit()
