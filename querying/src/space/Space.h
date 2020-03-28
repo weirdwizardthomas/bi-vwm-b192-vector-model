@@ -7,7 +7,7 @@
 #include <map>
 
 #include "../inverted_index/InvertedIndex.h"
-#include "Query.h"
+#include "../query/Query.h"
 
 /**
  * @brief Class representing the vector space of the collection

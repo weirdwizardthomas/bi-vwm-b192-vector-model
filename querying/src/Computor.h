@@ -7,7 +7,7 @@
 
 #include <map>
 #include "space/Space.h"
-#include "space/Query.h"
+#include "query/Query.h"
 
 /**
  * @brief A class that encompasses the calculation of a document's relevancy to the query

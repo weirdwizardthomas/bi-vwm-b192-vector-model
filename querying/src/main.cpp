@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "inverted_index/InvertedIndexJSONParser.h"
-#include "space/Query.h"
+#include "query/Query.h"
 #include "space/Space.h"
 #include "Computor.h"
 

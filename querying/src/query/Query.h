@@ -6,7 +6,7 @@
 #include <set>
 #include <vector>
 #include <string>
-#include "Space.h"
+#include "../space/Space.h"
 
 /**
  * @brief A data class representing user query against the collection
