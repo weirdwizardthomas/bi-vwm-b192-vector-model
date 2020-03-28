@@ -6,8 +6,8 @@
 #define QUERYING_COMPUTOR_H
 
 #include <map>
-#include "space/Space.h"
-#include "query/Query.h"
+#include "Space.h"
+#include "Query.h"
 
 /**
  * @brief A class that encompasses the calculation of a document's relevancy to the query

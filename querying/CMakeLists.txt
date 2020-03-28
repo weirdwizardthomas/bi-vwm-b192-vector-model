@@ -3,16 +3,17 @@ project(Querying)
 
 set(CMAKE_CXX_STANDARD 17)
 
-SET(CMAKE_CXX_FLAGS "-g -Wall -pedantic -Wextra")
+set(CMAKE_CXX_FLAGS "-g -Wall -pedantic -Wextra")
 
 add_executable(main
         src/main.cpp
-        src/inverted_index/InvertedIndex.cpp src/inverted_index/InvertedIndex.h
-        src/inverted_index/InvertedIndexJSONParser.cpp src/inverted_index/InvertedIndexJSONParser.h
-        src/space/Space.cpp src/space/Space.h
-        src/query/Query.cpp src/query/Query.h
-        src/Computor.cpp src/Computor.h
-        src/Document.cpp src/Document.h
-        src/exceptions/Exceptions.h src/query/QueryJSONParser.cpp src/query/QueryJSONParser.h src/argument_parser/argument_parser.cpp)
+        src/calculation/InvertedIndex.cpp src/calculation/InvertedIndex.h
+        src/util/InvertedIndexJSONParser.cpp src/util/InvertedIndexJSONParser.h
+        src/calculation/Space.cpp src/calculation/Space.h
+        src/calculation/Query.cpp src/calculation/Query.h
+        src/calculation/Computor.cpp src/calculation/Computor.h
+        src/calculation/Document.cpp src/calculation/Document.h
+        src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h
+        src/exceptions/Exceptions.h)
 
 target_link_libraries(main)

@@ -4,7 +4,7 @@
 
 #include <string>
 #include <deque>
-#include "../Document.h"
+#include "Document.h"
 
 /**
  * @brief A data class of a term's inverted index list

@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "inverted_index/InvertedIndexJSONParser.h"
-#include "query/Query.h"
-#include "space/Space.h"
-#include "Computor.h"
+#include "calculation/Query.h"
+#include "calculation/Space.h"
+#include "calculation/Computor.h"
 #include "../lib/cxxopts.hpp"
-#include "query/QueryJSONParser.h"
+#include "util/QueryJSONParser.h"
+#include "util/InvertedIndexJSONParser.h"
 
 using namespace std;
 using namespace cxxopts;

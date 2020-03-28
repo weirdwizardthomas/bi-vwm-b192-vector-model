@@ -5,8 +5,8 @@
 #include <fstream>
 #include <map>
 #include "../../lib/json.hpp"
+#include "../calculation/InvertedIndex.h"
 
-#include "InvertedIndex.h"
 
 /**
  * @brief A class that loads a JSON file of inverted indices and parses it
