@@ -4,16 +4,37 @@
 #include "query/Query.h"
 #include "space/Space.h"
 #include "Computor.h"
+#include "../lib/cxxopts.hpp"
+#include "query/QueryJSONParser.h"
 
 using namespace std;
+using namespace cxxopts;
 
-int main() {
-    Space space(InvertedIndexJSONParser("../../data/persistence/dummy.json").parse());
+int main(int argc, char **argv) {
+    Options options("Information retrieval - querying", "Queries against a collection.");
+    options.add_options()
+            ("q,query", "Search query", cxxopts::value<string>())
+            ("c,collection", "Document collection", cxxopts::value<string>())
+            ("t,threshold", "Document filter threshold", cxxopts::value<double>()->default_value("0.5"))
+            ("h,help", "Print usage");
 
-    Query query({
-                        {"forest",   0.2},
-                        {"mountain", 0.1},
-                        {"nature",   0.8}}, 0.5);
+
+    auto result = options.parse(argc, argv);
+
+    if (result.count("help")) {
+        cout << options.help() << std::endl;
+        return EXIT_SUCCESS;
+    }
+
+    if (!result.count("query") || !result.count("collection") || !result.count("threshold"))
+        return EXIT_FAILURE;
+
+    auto threshold = result["threshold"].as<double>();
+    auto queryPath = result["query"].as<string>();
+    auto collectionPath = result["collection"].as<string>();
+
+    Space space(InvertedIndexJSONParser(collectionPath).parse());
+    Query query(QueryJSONParser(queryPath).parse(), threshold);
 
     auto res = Computor(space, query).compute();
     for (const auto &[id, value]: res)
