@@ -6,7 +6,8 @@
 
 using namespace std;
 
-Space::Space(map<string, InvertedIndex> terms) : terms(move(terms)) {}
+Space::Space(map<string, InvertedIndex> terms)
+        : terms(move(terms)) {}
 
 
 const InvertedIndex &Space::operator[](const string &key) const {

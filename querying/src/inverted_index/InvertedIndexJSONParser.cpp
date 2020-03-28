@@ -2,7 +2,7 @@
 // Created by tomas on 3/23/20.
 //
 
-#include "InputParser.h"
+#include "InvertedIndexJSONParser.h"
 
 #include <utility>
 #include <deque>
@@ -12,11 +12,13 @@ using namespace std;
 
 using json = nlohmann::json;
 
-InputParser::InputParser(string filePath) : filePath(move(filePath)) {}
+InvertedIndexJSONParser::InvertedIndexJSONParser(string filePath)
+        : filePath(move(filePath)) {}
 
-map<string, InvertedIndex> InputParser::getInvertedIndices() {
+map<string, InvertedIndex> InvertedIndexJSONParser::parse() {
     json root = loadJsonFromFile();
     map<string, InvertedIndex> invertedIndices;
+
     for (const auto &[term, documentIDs]: root.items()) {
         deque<Document> weights;
 
@@ -24,7 +26,7 @@ map<string, InvertedIndex> InputParser::getInvertedIndices() {
             weights.emplace_back(stoi(documentID), weight);
 
         sort(weights.begin(), weights.end(),
-             [](const auto &a, const auto &b) { return a.getID() < b.getID(); });
+             [](const auto &a, const auto &b) { return a.getID() < b.getID(); }); //sort according to document ID
 
         invertedIndices.emplace(term, InvertedIndex(weights));
     }
@@ -32,7 +34,7 @@ map<string, InvertedIndex> InputParser::getInvertedIndices() {
     return invertedIndices;
 }
 
-json InputParser::loadJsonFromFile() {
+json InvertedIndexJSONParser::loadJsonFromFile() {
     fileStream = ifstream(filePath);
 
     if (fileStream.fail())

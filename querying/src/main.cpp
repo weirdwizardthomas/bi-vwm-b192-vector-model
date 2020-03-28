@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "inverted_index/InputParser.h"
+#include "inverted_index/InvertedIndexJSONParser.h"
 #include "space/Query.h"
 #include "space/Space.h"
 #include "Computor.h"
@@ -8,7 +8,7 @@
 using namespace std;
 
 int main() {
-    Space space(InputParser("../../data/persistence/dummy.json").getInvertedIndices());
+    Space space(InvertedIndexJSONParser("../../data/persistence/dummy.json").parse());
 
     Query query({
                         {"forest",   0.2},

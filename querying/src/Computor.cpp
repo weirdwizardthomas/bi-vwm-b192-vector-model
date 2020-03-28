@@ -6,7 +6,9 @@
 
 using namespace std;
 
-Computor::Computor(Space space, Query query) : space(std::move(space)), query(std::move(query)) {}
+Computor::Computor(Space space, Query query)
+        : space(std::move(space)),
+          query(std::move(query)) {}
 
 map<int, double> Computor::compute() {
     map<int, double> results;
@@ -17,7 +19,7 @@ map<int, double> Computor::compute() {
         int ID = nextID(); //get lowest ID
         double result = 0;
 
-        for (const auto& term: availableTerms) /*Go through all the remaining terms*/ {
+        for (const auto &term: availableTerms) /*Go through all the remaining terms*/ {
             try {
                 double documentWeight = space.getInvertedIndexByKey(term).getDocumentWeightByID(ID);
                 double queryWeight = query.terms.at(term);
@@ -30,7 +32,7 @@ map<int, double> Computor::compute() {
                 availableTerms.erase(term); //exhaust term
             }
         }
-        if(result > query.threshold)
+        if (result > query.threshold) //filter out irrelevant documents
             results[ID] = result;
     }
 
@@ -41,7 +43,7 @@ int Computor::nextID() {
     int lowestID = INT_MAX;
 
     for (const auto &term: availableTerms)
-        lowestID = min(space[term].getLowestID(), lowestID);
+        lowestID = min(space[term].getNextID(), lowestID);
 
     return lowestID;
 }

@@ -4,8 +4,8 @@
 
 using namespace std;
 
-InvertedIndex::InvertedIndex(deque<Document> documentWeights)
-        : documents(move(documentWeights)) {}
+InvertedIndex::InvertedIndex(deque<Document> documents)
+        : documents(move(documents)) {}
 
 double InvertedIndex::getDocumentWeightByID(int ID) {
     Document document{};
@@ -25,11 +25,11 @@ double InvertedIndex::getDocumentWeightByID(int ID) {
     return document.getWeight();
 }
 
-const Document &InvertedIndex::operator[](size_t i) {
-    return documents[i];
+const Document &InvertedIndex::operator[](size_t index) {
+    return documents[index];
 }
 
-int InvertedIndex::getLowestID() const {
+int InvertedIndex::getNextID() const {
     return documents.front().getID();
 }
 

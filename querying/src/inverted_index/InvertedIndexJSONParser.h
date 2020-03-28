@@ -1,5 +1,5 @@
-#ifndef QUERYING_INPUTPARSER_H
-#define QUERYING_INPUTPARSER_H
+#ifndef QUERYING_INVERTEDINDEXJSONPARSER_H
+#define QUERYING_INVERTEDINDEXJSONPARSER_H
 
 
 #include <fstream>
@@ -9,12 +9,11 @@
 #include "InvertedIndex.h"
 
 /**
- * @brief Class that handles loading a JSON file of inverted indices and parses it
+ * @brief A class that loads a JSON file of inverted indices and parses it
  *
  * @author koristo1@fit.cvut.cz
- *
  */
-class InputParser {
+class InvertedIndexJSONParser {
 private:
     //Attributes-------------
     std::ifstream fileStream; /**<File stream of the read JSON file*/
@@ -34,15 +33,15 @@ public:
      * Constructor
      * @param filePath Path of the JSON file to be processed
      */
-    explicit InputParser(std::string filePath);
+    explicit InvertedIndexJSONParser(std::string filePath);
 
     /**
      * Loads and parses a JSON file specified by @ref filePath
      * @return Parsed data of the JSON file,
      * where key = term name, value = inverted index list of the term
      */
-    std::map<std::string, InvertedIndex> getInvertedIndices();
+    std::map<std::string, InvertedIndex> parse();
 };
 
 
-#endif //QUERYING_INPUTPARSER_H
+#endif //QUERYING_INVERTEDINDEXJSONPARSER_H

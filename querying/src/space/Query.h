@@ -9,7 +9,9 @@
 #include "Space.h"
 
 /**
- * @brief A class representing user query against the collection
+ * @brief A data class representing user query against the collection
+ *
+ * @author koristo1@fit.cvut.cz
  */
 class Query {
 public:
@@ -26,7 +28,12 @@ public:
      */
     explicit Query(std::map<std::string, double> t, double threshold);
 
-    static std::set<std::string> getKeyset(const std::map<std::string, double> &t);
+    /**
+     * Extracts the keyset from the @ref t map
+     * @param t A map from which the keyset is to extract
+     * @return keys of @ref t
+     */
+    static std::set<std::string> createKeyset(const std::map<std::string, double> &t);
 };
 
 

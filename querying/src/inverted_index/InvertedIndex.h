@@ -7,7 +7,7 @@
 #include "../Document.h"
 
 /**
- * @brief Data container of term and its inverted index list
+ * @brief A data class of a term's inverted index list
  *
  * @author koristo1@fit.cvut.cz
  */
@@ -17,13 +17,12 @@ private:
     std::deque<Document> documents; /**<Inverted index list of documents & their weights in which the term appears */
 
 public:
-
     //Methods-----------------
     /**
      * Constructor
-     * @param documentWeights Inverted index list of documents in which the term appears, and their weights
+     * @param documents Inverted index list of documents in which the term appears, and their weights
      */
-    explicit InvertedIndex(std::deque<Document> documentWeights);
+    explicit InvertedIndex(std::deque<Document> documents);
 
     /**
      * @brief Finds the @ref Document object with a given @ref Document::ID in @ref documents
@@ -37,9 +36,18 @@ public:
      */
     double getDocumentWeightByID(int ID);
 
-    int getLowestID() const;
+    /**
+     * @brief Returns the lowest (=first) document ID in documents
+     * @return Lowest ID in @ref InvertedIndex::documents
+     */
+    int getNextID() const;
 
-    const Document &operator[](size_t i);
+    /**
+     * @brief Returns a @ref Document at @ref index position in @ref InvertedIndex::documents
+     * @param index of the element to return
+     * @return Document at @ref index
+     */
+    const Document &operator[](size_t index);
 };
 
 

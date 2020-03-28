@@ -5,13 +5,19 @@
 #ifndef QUERYING_DOCUMENT_H
 #define QUERYING_DOCUMENT_H
 
-
+/**
+ * @brief A data class of document's ID and it's weight for a given term
+ *
+ * @author koristo1@fit.cvut.cz
+ */
 class Document {
 private:
-    int ID;
-    double weight;
+    //Attributes-------------
+    int ID; /**< Document's database ID */
+    double weight; /**< Weight of the document for a given term */
 
 public:
+    //Methods---------------
     Document(int id, double weight);
 
     Document() = default;
@@ -19,7 +25,6 @@ public:
     int getID() const;
 
     double getWeight() const;
-
 };
 
 
