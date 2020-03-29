@@ -13,11 +13,8 @@ using namespace cxxopts;
 int main(int argc, char **argv) {
     Options options("Information retrieval - querying", "Queries against a collection.");
     options.add_options()
-            ("q,query", "Search query", cxxopts::value<string>())
             ("c,collection", "Document collection", cxxopts::value<string>())
-            ("t,threshold", "Document filter threshold", cxxopts::value<double>()->default_value("0.5"))
             ("h,help", "Print usage");
-
 
     auto result = options.parse(argc, argv);
 
@@ -26,18 +23,27 @@ int main(int argc, char **argv) {
         return EXIT_SUCCESS;
     }
 
-    if (!result.count("query") || !result.count("collection") || !result.count("threshold"))
+    if (!result.count("collection"))
         return EXIT_FAILURE;
 
-    auto threshold = result["threshold"].as<double>();
-    auto queryPath = result["query"].as<string>();
     auto collectionPath = result["collection"].as<string>();
-
     Space space(InvertedIndexJSONParser(collectionPath).parse());
-    Query query(QueryJSONParser(queryPath).parse(), threshold);
 
-    auto res = Computor(space, query).compute();
-    for (const auto &[id, value]: res)
-        cout << id << ":" << value << endl;
+    string queryPath;
+    bool exit = false;
+    double threshold;
+
+    while (true) {
+        cin >> exit;
+        if (exit)
+            break;
+
+        cin >> queryPath >> threshold;
+        Query query(QueryJSONParser(queryPath).parse(), threshold);
+        auto res = Computor(space, query).compute();
+        for (const auto &[id, value]: res)
+            cout << id << ":" << value << endl;
+    }
+
     return EXIT_SUCCESS;
 }
