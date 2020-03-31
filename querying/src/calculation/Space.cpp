@@ -19,4 +19,3 @@ InvertedIndex &Space::getInvertedIndexByKey(const string &key) {
 }
 
 
-

@@ -6,7 +6,6 @@
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 
-
 MainForm::MainForm(QWidget *parent) :
         QMainWindow(parent),
         UI(new Ui::MainForm),
@@ -66,13 +65,14 @@ void MainForm::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason) {
     }
 }
 
-MainForm &MainForm::setAvailableDocuments(const std::vector<std::string> &documents) {
+MainForm &MainForm::setAvailableDocuments(const std::vector<Document> &documents) {
     QStringList dummy;
 
     for (const auto &doc : documents)
-        dummy.append(QString(doc.data()));
+        dummy.append(QString(doc.name.data()));
 
     UI->documentsList->addItems(dummy);
+
     return *this;
 }
 
@@ -87,8 +87,8 @@ MainForm &MainForm::setResults(const std::vector<std::string> &results) {
     return *this;
 }
 
-MainForm &MainForm::setOpenedDocument(const std::string &documentPath) {
-    QString path = QString::fromStdString(documentPath);
+MainForm &MainForm::setOpenedDocument(const Document &document) {
+    QString path = QString::fromStdString(document.name);
 
     QFile file(path);
 

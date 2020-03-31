@@ -4,7 +4,7 @@
 
 #include <string>
 #include <deque>
-#include "Document.h"
+#include "WeightedDocument.h"
 
 /**
  * @brief A data class of a term's inverted index list
@@ -14,7 +14,7 @@
 class InvertedIndex {
 private:
     //Attributes-------------
-    std::deque<Document> documents; /**<Inverted index list of documents & their weights in which the term appears */
+    std::deque<WeightedDocument> documents; /**<Inverted index list of documents & their weights in which the term appears */
 
 public:
     //Methods-----------------
@@ -22,7 +22,7 @@ public:
      * Constructor
      * @param documents Inverted index list of documents in which the term appears, and their weights
      */
-    explicit InvertedIndex(std::deque<Document> documents);
+    explicit InvertedIndex(std::deque<WeightedDocument> documents);
 
     /**
      * @brief Finds the @ref Document object with a given @ref Document::ID in @ref documents
@@ -47,7 +47,7 @@ public:
      * @param index of the element to return
      * @return Document at @ref index
      */
-    const Document &operator[](size_t index);
+    const WeightedDocument &operator[](size_t index);
 };
 
 

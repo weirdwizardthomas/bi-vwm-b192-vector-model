@@ -20,7 +20,7 @@ map<string, InvertedIndex> InvertedIndexJSONParser::parse() {
     map<string, InvertedIndex> invertedIndices;
 
     for (const auto &[term, documentIDs]: root.items()) {
-        deque<Document> weights;
+        deque<WeightedDocument> weights;
 
         for (const auto &[documentID, weight] :  documentIDs.items())
             weights.emplace_back(stoi(documentID), weight);

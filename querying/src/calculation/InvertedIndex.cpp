@@ -4,11 +4,11 @@
 
 using namespace std;
 
-InvertedIndex::InvertedIndex(deque<Document> documents)
+InvertedIndex::InvertedIndex(deque<WeightedDocument> documents)
         : documents(move(documents)) {}
 
 double InvertedIndex::getDocumentWeightByID(int ID) {
-    Document document{};
+    WeightedDocument document{};
 
     if (documents.empty())
         throw EndOfIndexException();
@@ -25,7 +25,7 @@ double InvertedIndex::getDocumentWeightByID(int ID) {
     return document.getWeight();
 }
 
-const Document &InvertedIndex::operator[](size_t index) {
+const WeightedDocument &InvertedIndex::operator[](size_t index) {
     return documents[index];
 }
 

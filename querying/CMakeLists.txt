@@ -46,10 +46,10 @@ set(SOURCES
         src/calculation/Space.cpp src/calculation/Space.h
         src/calculation/Query.cpp src/calculation/Query.h
         src/calculation/Computor.cpp src/calculation/Computor.h
-        src/calculation/Document.cpp src/calculation/Document.h
+        src/calculation/WeightedDocument.cpp src/calculation/WeightedDocument.h
         src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h
         src/exceptions/Exceptions.h
-        src/CollectionFetcher.cpp src/CollectionFetcher.h)
+        src/database/DocumentCollection.cpp src/database/DocumentCollection.h src/util/ArgumentParser.cpp src/util/ArgumentParser.h src/database/Document.cpp src/database/Document.h)
 
 # User interface files
 set(FORMS

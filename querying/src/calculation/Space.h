@@ -34,6 +34,7 @@ public:
      */
     InvertedIndex &getInvertedIndexByKey(const std::string &key);
 
+
     /**
      * @brief Gets an element from @ref Space::terms with key @ref key
      * @param key Key of the element to find

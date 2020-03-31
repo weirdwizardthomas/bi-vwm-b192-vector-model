@@ -2,15 +2,15 @@
 // Created by tomas on 3/24/20.
 //
 
-#ifndef QUERYING_DOCUMENT_H
-#define QUERYING_DOCUMENT_H
+#ifndef QUERYING_WEIGHTEDDOCUMENT_H
+#define QUERYING_WEIGHTEDDOCUMENT_H
 
 /**
  * @brief A data class of document's ID and it's weight for a given term
  *
  * @author koristo1@fit.cvut.cz
  */
-class Document {
+class WeightedDocument {
 private:
     //Attributes-------------
     int ID; /**< Document's database ID */
@@ -18,9 +18,9 @@ private:
 
 public:
     //Methods---------------
-    Document(int id, double weight);
+    WeightedDocument(int id, double weight);
 
-    Document() = default;
+    WeightedDocument() = default;
 
     int getID() const;
 
@@ -28,4 +28,4 @@ public:
 };
 
 
-#endif //QUERYING_DOCUMENT_H
+#endif //QUERYING_WEIGHTEDDOCUMENT_H
