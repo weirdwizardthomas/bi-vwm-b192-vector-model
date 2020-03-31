@@ -50,11 +50,15 @@ int main(int argc, char *argv[]) {
 }
 
 /*
-int main(int argc, char **argv) {
+ todo tohle bylo puvodne smycka, ve ktery se dostavalo: 1. flag, jestli se ma skoncit, 2. cesta k jsonu, ktery reprezentuje dotaz
+ todo 3. threshold
+ todo misto smycky je to potreba dat jako nejaky event, napr otevreni dokumentu, nebo jeho pretazeni do prohlizece dokumentu, nebo nejake tlacitko
+ todo taky to nemusi byt json ten vstup, ale to je na povazenou, jak to udelat. Protoze pokud bude vstup dokument, tak by asi mel projit taky preprocessingem a vypoctem vah
 
     string queryPath;
     bool exit = false;
     double threshold;
+
 
     while (true) {
         cin >> exit;
@@ -67,5 +71,4 @@ int main(int argc, char **argv) {
      }
 
 
- }
 */
