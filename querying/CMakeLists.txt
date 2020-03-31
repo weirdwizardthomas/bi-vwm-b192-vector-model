@@ -1,12 +1,46 @@
-cmake_minimum_required(VERSION 3.15)
-project(Querying)
+cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_CXX_FLAGS "-g -Wall -pedantic -Wextra")
+set(TARGET_NAME Querying)
 
-add_executable(main
+project(${TARGET_NAME})
+
+# Check the build type and ask the user to set concrete one
+if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE RelWithDebInfo)
+    message(WARNING "CMAKE_BUILD_TYPE is not set, forcing to RelWithDebInfo")
+endif ()
+
+# Set compiler flags
+if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra")
+    set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3")
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O3 -g3")
+    set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os")
+endif ()
+
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Network REQUIRED)
+
+include_directories(
+        ${CMAKE_CURRENT_BINARY_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# Instruct CMake to run moc automatically when needed
+set(CMAKE_AUTOMOC ON)
+
+# Add subdirectory SQLiteCpp with all necessary files
+add_subdirectory(lib/SQLiteCpp)
+
+
+# Source files
+set(SOURCES
         src/main.cpp
+        src/ui/forms/mainform.cpp
+        src/ui/widgets/textedit.cpp
         src/calculation/InvertedIndex.cpp src/calculation/InvertedIndex.h
         src/util/InvertedIndexJSONParser.cpp src/util/InvertedIndexJSONParser.h
         src/calculation/Space.cpp src/calculation/Space.h
@@ -14,6 +48,37 @@ add_executable(main
         src/calculation/Computor.cpp src/calculation/Computor.h
         src/calculation/Document.cpp src/calculation/Document.h
         src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h
-        src/exceptions/Exceptions.h)
+        src/exceptions/Exceptions.h
+        src/CollectionFetcher.cpp src/CollectionFetcher.h)
 
-target_link_libraries(main)
+# User interface files
+set(FORMS
+        src/ui/forms/mainform.ui
+        )
+
+# Resource files
+set(RESOURCES
+        resources.qrc
+        )
+
+# Shared libraries
+set(LIBRARIES
+        Qt5::Widgets
+        Qt5::Network
+        SQLiteCpp
+        )
+
+# Generate additional sources with MOC and UIC
+qt5_wrap_ui(UIC_SOURCES ${FORMS})
+qt5_add_resources(RCC_SOURCES ${RESOURCES})
+
+# Set target
+add_executable(${TARGET_NAME} ${SOURCES} ${HEADERS} ${UIC_SOURCES} ${RCC_SOURCES})
+
+# Link with libraries
+target_link_libraries(${TARGET_NAME} ${LIBRARIES})
+
+# Installation
+install(TARGETS ${TARGET_NAME} RUNTIME DESTINATION bin)
+install(FILES resources/${TARGET_NAME}.png DESTINATION share/icons/hicolor/48x48/apps)
+install(FILES ${TARGET_NAME}.desktop DESTINATION share/applications)

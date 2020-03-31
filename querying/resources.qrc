@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/add-tab.png</file>
+        <file>resources/close-hover.png</file>
+        <file>resources/close.png</file>
+        <file>resources/main-icon.png</file>
+        <file>resources/swap.png</file>
+        <file>resources/settings.png</file>
+    </qresource>
+</RCC>
