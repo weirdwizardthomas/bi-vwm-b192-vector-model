@@ -1,0 +1,34 @@
+body {
+  background-image: url("background.png");
+  font-family: 'Open Sans', sans-serif;
+  color: #19222a;
+  text-align: center;
+  margin: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+
+hr {
+  color: #19222a;
+  width: 800px;
+}
+
+.navigation {
+  width: 700px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.navigation a {
+  display: block;
+  background-color: #D3D3D3;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.navigation a:hover {
+  background-color: #A9A9A9;
+}

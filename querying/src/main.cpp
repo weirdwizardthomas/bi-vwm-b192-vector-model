@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
 
-#include <QApplication>
+//#include <QApplication>
 #include <src/util/ArgumentParser.h>
 
 #include "calculation/Query.h"
@@ -9,15 +9,28 @@
 #include "calculation/Computor.h"
 #include "util/QueryJSONParser.h"
 #include "util/InvertedIndexJSONParser.h"
-#include "src/ui/forms/mainform.h"
+//#include "src/ui/forms/mainform.h"
+#include "src/ui_wt/MainForm.h"
 #include "src/database/DocumentCollection.h"
 #include "src/database/Document.h"
 
 using namespace std;
 using namespace cxxopts;
 
+std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env)
+{
+  auto app = Wt::cpp14::make_unique<MainForm>(env);
+  app->setTitle("Querying: Vector model of information retrieval");
+  app->useStyleSheet("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+  app->useStyleSheet("style.css");
+
+  return std::move(app);
+}
+
 int main(int argc, char *argv[]) {
 
+    return Wt::WRun(argc, argv, &createApplication);
+    /*
     ArgumentParser argumentParser;
     switch (argumentParser.parse(argc, argv)) {
         case ArgumentParser::HELP: {
@@ -47,6 +60,7 @@ int main(int argc, char *argv[]) {
     mainForm.show();
 
     return QApplication::exec();
+    */
 }
 
 /*

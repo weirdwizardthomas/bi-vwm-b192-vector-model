@@ -39,6 +39,7 @@ add_subdirectory(lib/SQLiteCpp)
 # Source files
 set(SOURCES
         src/main.cpp
+        src/ui_wt/MainForm.cpp
         src/ui/forms/mainform.cpp
         src/ui/widgets/textedit.cpp
         src/calculation/InvertedIndex.cpp src/calculation/InvertedIndex.h
@@ -66,6 +67,8 @@ set(LIBRARIES
         Qt5::Widgets
         Qt5::Network
         SQLiteCpp
+        wt
+        wthttp
         )
 
 # Generate additional sources with MOC and UIC
