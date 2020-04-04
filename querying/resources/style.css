@@ -6,13 +6,9 @@ body {
   margin: 0;
 }
 
-h1 {
-  margin-bottom: 0;
-}
-
-hr {
-  color: #19222a;
-  width: 800px;
+button {
+  font-size: 20px;
+  margin: 20px;
 }
 
 .navigation {

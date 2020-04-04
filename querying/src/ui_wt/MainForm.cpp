@@ -2,6 +2,7 @@
 #include <Wt/WText.h>
 #include <Wt/WMenu.h>
 #include <Wt/WStackedWidget.h>
+#include <Wt/WPushButton.h>
 
 #include <fstream>
 #include <vector>
@@ -25,20 +26,31 @@ MainForm::MainForm(const Wt::WEnvironment& env)
   auto availableDocuments = collection.fetchCollection();
 
   auto container = root()->addWidget(Wt::cpp14::make_unique<Wt::WContainerWidget>());
-  container->addNew<Wt::WText>("<h1>Choose document to display</h1><hr/>");
+  container->addNew<Wt::WText>("<h1>Available books to display</h1>");
 
+  auto buttonPtr = Wt::cpp14::make_unique<Wt::WPushButton>("Show me more!");
+  auto button = buttonPtr.get();
   auto contents = Wt::cpp14::make_unique<Wt::WStackedWidget>();
+  std::string path;
 
   Wt::WMenu *menu = container->addNew<Wt::WMenu>(contents.get());
-  menu->setStyleClass("navigation");
-
   for (int i = 0; i < 10; i++)
   {
-    std::string path = availableDocuments.at(i).name;
+    path = availableDocuments.at(i).name;
     menu->addItem(getName(path), Wt::cpp14::make_unique<Wt::WText>(getDocument(path)));
   }
+  menu->setStyleClass("navigation");
+  menu->select(1);
 
+  container->addWidget(std::move(buttonPtr));
   container->addWidget(std::move(contents));
+
+  button->clicked().connect([=] {
+    container->clear(); // vymaze vsechno z aktualniho containeru
+    std::string path = availableDocuments.at(menu->currentIndex()).name;
+    container->addNew<Wt::WText>("<h1>" + getName(path) + "</h1>");
+    container->addNew<Wt::WText>(getDocument(path));
+  });
 }
 
 std::string MainForm::getName(const std::string & path)
