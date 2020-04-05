@@ -20,13 +20,18 @@ button {
 
 .navigation a {
   display: block;
-  background-color: #D3D3D3;
+  background-color: #ffffff;
   text-decoration: none;
   padding: 10px;
 }
 
 .navigation a:hover {
-  background-color: #A9A9A9;
+  background-color: #dcdcdc;
+}
+
+.navigation > li > a {
+  border-radius: 5px;
+  margin-top: 3px;
 }
 
 .navigation > .itemselected > a {

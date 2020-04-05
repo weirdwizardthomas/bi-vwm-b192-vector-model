@@ -26,29 +26,22 @@ MainPage::MainPage(const Wt::WEnvironment& env)
   auto availableDocuments = collection.fetchCollection();
 
   auto container = root()->addWidget(Wt::cpp14::make_unique<Wt::WContainerWidget>());
-  container->addNew<Wt::WText>("<h1>Available books to display</h1>");
-
   auto buttonPtr = Wt::cpp14::make_unique<Wt::WPushButton>("Show me more!");
   auto button = buttonPtr.get();
-  auto contents = Wt::cpp14::make_unique<Wt::WStackedWidget>();
-  std::string path;
 
-  Wt::WMenu *menu = container->addNew<Wt::WMenu>(contents.get());
+  container->addNew<Wt::WText>("<h1>Available books to display</h1>");
+
+  Wt::WMenu *menu = container->addNew<Wt::WMenu>();
   menu->setStyleClass("navigation");
-  for (int i = 0; i < 10; i++)
-  {
-    path = availableDocuments.at(i).name;
-    menu->addItem(getName(path), Wt::cpp14::make_unique<Wt::WText>(getDocument(path)));
+  for (int i = 0; i < 10; i++) {
+    menu->addItem(getName(availableDocuments.at(i).name));
   }
+  menu->select(0);
 
   container->addWidget(std::move(buttonPtr));
-  container->addWidget(std::move(contents));
 
   button->clicked().connect([=] {
-    container->clear(); // deletes everything from current container
-    std::string path = availableDocuments.at(menu->currentIndex()).name;
-    container->addNew<Wt::WText>("<h1>" + getName(path) + "</h1>");
-    container->addNew<Wt::WText>(getDocument(path));
+    displayDetail(container, availableDocuments.at(menu->currentIndex()).name);
   });
 }
 
@@ -96,4 +89,13 @@ void MainPage::encode(std::string & data) {
         }
     }
     data.swap(buffer);
+}
+
+void MainPage::displayDetail(Wt::WContainerWidget * container, const std::string & path)
+{
+  // deletes everything from current container
+  container->clear();
+  // Show similar books
+  container->addNew<Wt::WText>("<h1>" + getName(path) + "</h1>");
+  container->addNew<Wt::WText>(getDocument(path));
 }

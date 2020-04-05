@@ -12,4 +12,5 @@ private:
     std::string getName(const std::string & path);
     std::string getDocument(const std::string & path);
     void encode(std::string & content);
+    void displayDetail(Wt::WContainerWidget * container, const std::string & path);
 };
