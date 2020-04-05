@@ -39,7 +39,7 @@ add_subdirectory(lib/SQLiteCpp)
 # Source files
 set(SOURCES
         src/main.cpp
-        src/ui_wt/MainForm.cpp
+        src/ui_wt/MainPage.cpp
         src/ui/forms/mainform.cpp
         src/ui/widgets/textedit.cpp
         src/calculation/InvertedIndex.cpp src/calculation/InvertedIndex.h

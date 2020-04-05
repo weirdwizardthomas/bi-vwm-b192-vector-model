@@ -28,3 +28,8 @@ button {
 .navigation a:hover {
   background-color: #A9A9A9;
 }
+
+.navigation > .itemselected > a {
+  color: #ffffff;
+  background-color: #0088cc;
+}

@@ -3,10 +3,10 @@
 #include <Wt/WApplication.h>
 #include <string>
 
-class MainForm : public Wt::WApplication
+class MainPage : public Wt::WApplication
 {
 public:
-    MainForm(const Wt::WEnvironment& env);
+    MainPage(const Wt::WEnvironment& env);
 
 private:
     std::string getName(const std::string & path);

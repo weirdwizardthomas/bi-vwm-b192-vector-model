@@ -10,7 +10,7 @@
 #include "util/QueryJSONParser.h"
 #include "util/InvertedIndexJSONParser.h"
 //#include "src/ui/forms/mainform.h"
-#include "src/ui_wt/MainForm.h"
+#include "src/ui_wt/MainPage.h"
 #include "src/database/DocumentCollection.h"
 #include "src/database/Document.h"
 
@@ -19,7 +19,7 @@ using namespace cxxopts;
 
 std::unique_ptr<Wt::WApplication> createApplication(const Wt::WEnvironment& env)
 {
-  auto app = Wt::cpp14::make_unique<MainForm>(env);
+  auto app = Wt::cpp14::make_unique<MainPage>(env);
   app->setTitle("Querying: Vector model of information retrieval");
   app->useStyleSheet("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
   app->useStyleSheet("style.css");

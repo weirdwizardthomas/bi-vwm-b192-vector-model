@@ -16,9 +16,9 @@
 #include "./../database/DocumentCollection.h"
 #include "./../database/Document.h"
 
-#include "MainForm.h"
+#include "MainPage.h"
 
-MainForm::MainForm(const Wt::WEnvironment& env)
+MainPage::MainPage(const Wt::WEnvironment& env)
     : Wt::WApplication(env)
 {
   Space space(InvertedIndexJSONParser("./../../data/persistence/invertedList.json").parse());
@@ -34,26 +34,25 @@ MainForm::MainForm(const Wt::WEnvironment& env)
   std::string path;
 
   Wt::WMenu *menu = container->addNew<Wt::WMenu>(contents.get());
+  menu->setStyleClass("navigation");
   for (int i = 0; i < 10; i++)
   {
     path = availableDocuments.at(i).name;
     menu->addItem(getName(path), Wt::cpp14::make_unique<Wt::WText>(getDocument(path)));
   }
-  menu->setStyleClass("navigation");
-  menu->select(1);
 
   container->addWidget(std::move(buttonPtr));
   container->addWidget(std::move(contents));
 
   button->clicked().connect([=] {
-    container->clear(); // vymaze vsechno z aktualniho containeru
+    container->clear(); // deletes everything from current container
     std::string path = availableDocuments.at(menu->currentIndex()).name;
     container->addNew<Wt::WText>("<h1>" + getName(path) + "</h1>");
     container->addNew<Wt::WText>(getDocument(path));
   });
 }
 
-std::string MainForm::getName(const std::string & path)
+std::string MainPage::getName(const std::string & path)
 {
   std::string name = path;
   name = name.substr(name.find_last_of('/') + 1);
@@ -63,7 +62,7 @@ std::string MainForm::getName(const std::string & path)
   return name;
 }
 
-std::string MainForm::getDocument(const std::string & path)
+std::string MainPage::getDocument(const std::string & path)
 {
   std::string content;
 
@@ -83,7 +82,7 @@ std::string MainForm::getDocument(const std::string & path)
   return content;
 }
 
-void MainForm::encode(std::string & data) {
+void MainPage::encode(std::string & data) {
     std::string buffer;
     buffer.reserve(data.size());
     for(size_t pos = 0; pos != data.size(); ++pos) {
