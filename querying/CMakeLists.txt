@@ -21,9 +21,6 @@ if (${CMAKE_CXX_COMPILER_ID} MATCHES "GNU" OR ${CMAKE_CXX_COMPILER_ID} MATCHES "
     set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os")
 endif ()
 
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Network REQUIRED)
-
 include_directories(
         ${CMAKE_CURRENT_BINARY_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}
@@ -40,8 +37,6 @@ add_subdirectory(lib/SQLiteCpp)
 set(SOURCES
         src/main.cpp
         src/ui_wt/MainPage.cpp
-        src/ui/forms/mainform.cpp
-        src/ui/widgets/textedit.cpp
         src/calculation/InvertedIndex.cpp src/calculation/InvertedIndex.h
         src/util/InvertedIndexJSONParser.cpp src/util/InvertedIndexJSONParser.h
         src/calculation/Space.cpp src/calculation/Space.h
@@ -51,38 +46,19 @@ set(SOURCES
         src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h
         src/exceptions/Exceptions.h
         src/database/Terms.cpp src/database/Terms.h
-        src/database/DocumentCollection.cpp src/database/DocumentCollection.h src/util/ArgumentParser.cpp src/util/ArgumentParser.h src/database/Document.cpp src/database/Document.h)
-
-# User interface files
-set(FORMS
-        src/ui/forms/mainform.ui
-        )
-
-# Resource files
-set(RESOURCES
-        resources.qrc
-        )
+        src/database/DocumentCollection.cpp src/database/DocumentCollection.h
+        src/util/ArgumentParser.cpp src/util/ArgumentParser.h
+        src/database/Document.cpp src/database/Document.h)
 
 # Shared libraries
 set(LIBRARIES
-        Qt5::Widgets
-        Qt5::Network
         SQLiteCpp
         wt
         wthttp
         )
 
-# Generate additional sources with MOC and UIC
-qt5_wrap_ui(UIC_SOURCES ${FORMS})
-qt5_add_resources(RCC_SOURCES ${RESOURCES})
-
 # Set target
-add_executable(${TARGET_NAME} ${SOURCES} ${HEADERS} ${UIC_SOURCES} ${RCC_SOURCES})
+add_executable(${TARGET_NAME} ${SOURCES} ${HEADERS})
 
 # Link with libraries
 target_link_libraries(${TARGET_NAME} ${LIBRARIES})
-
-# Installation
-install(TARGETS ${TARGET_NAME} RUNTIME DESTINATION bin)
-install(FILES resources/${TARGET_NAME}.png DESTINATION share/icons/hicolor/48x48/apps)
-install(FILES ${TARGET_NAME}.desktop DESTINATION share/applications)
