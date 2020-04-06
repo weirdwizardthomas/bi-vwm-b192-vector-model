@@ -5,9 +5,11 @@
 #ifndef QUERYING_COMPUTOR_H
 #define QUERYING_COMPUTOR_H
 
-#include <map>
+#include <vector>
+
 #include "Space.h"
 #include "Query.h"
+#include "./../database/Terms.h"
 
 /**
  * @brief A class that encompasses the calculation of a document's relevancy to the query
@@ -38,9 +40,9 @@ public:
      * @brief Computes relevancies of documents to the query
      *
      * Filters relevancies that are below @ref Query::threshold
-     * @return Map of document IDs and their relevancies to the query
+     * @return Vector of pairs with document IDs and their similarity to the query, sorted by similarity desc
      */
-    std::map<int, double> compute();
+    std::vector<std::pair<int, double>> compute(Terms & collection, int document_id);
 };
 
 

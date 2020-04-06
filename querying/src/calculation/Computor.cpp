@@ -1,6 +1,9 @@
 #include <iostream>
 #include <climits>
 #include <utility>
+#include <algorithm>
+#include <cmath>
+
 #include "Computor.h"
 #include "../exceptions/Exceptions.h"
 
@@ -10,14 +13,15 @@ Computor::Computor(Space space, Query query)
         : space(std::move(space)),
           query(std::move(query)) {}
 
-map<int, double> Computor::compute() {
-    map<int, double> results;
+vector<pair<int, double>> Computor::compute(Terms & collection, int document_id) {
+    vector<pair<int, double>> results;
+    map<string, double> currentDocument = space.getTermsAndWeightsByID(collection, document_id);
 
     availableTerms = query.termsKeyset;
 
     while (!availableTerms.empty()) {
         int ID = nextID(); //get lowest ID
-        double result = 0;
+        double result = 0, denominator = 0, tmp = 0;
 
         for (const auto &term: availableTerms) /*Go through all the remaining terms*/ {
             try {
@@ -32,9 +36,24 @@ map<int, double> Computor::compute() {
                 availableTerms.erase(term); //exhaust term
             }
         }
+
+        for (const auto & entry : query.terms)
+            denominator += entry.second * entry.second;
+        
+        for (const auto & entry : currentDocument)
+            tmp += entry.second * entry.second;
+
+        denominator = sqrt(denominator * tmp);
+        // Input should not be zero vector but if it is, do not divide and "just" return wrong result..
+        if (denominator != 0)
+            result = result / denominator;
+
         if (result > query.threshold) //filter out irrelevant documents
-            results[ID] = result;
+            results.emplace_back(make_pair(ID, result));
     }
+
+    sort(results.begin(), results.end(), [] (const pair<int, double> & a, const pair<int, double> & b)
+                                         { return a.second > b.second; });
 
     return results;
 }
@@ -47,5 +66,3 @@ int Computor::nextID() {
 
     return lowestID;
 }
-
-

@@ -1,7 +1,7 @@
 #include <Wt/WContainerWidget.h>
 #include <Wt/WText.h>
 #include <Wt/WMenu.h>
-#include <Wt/WStackedWidget.h>
+#include <Wt/WBreak.h>
 #include <Wt/WPushButton.h>
 
 #include <fstream>
@@ -14,7 +14,6 @@
 #include "./../util/QueryJSONParser.h"
 #include "./../util/InvertedIndexJSONParser.h"
 #include "./../database/DocumentCollection.h"
-#include "./../database/Document.h"
 
 #include "MainPage.h"
 
@@ -41,7 +40,7 @@ MainPage::MainPage(const Wt::WEnvironment& env)
   container->addWidget(std::move(buttonPtr));
 
   button->clicked().connect([=] {
-    displayDetail(container, availableDocuments.at(menu->currentIndex()).name);
+    displayDetail(space, availableDocuments, container, availableDocuments.at(menu->currentIndex()).id);
   });
 }
 
@@ -58,44 +57,36 @@ std::string MainPage::getName(const std::string & path)
 std::string MainPage::getDocument(const std::string & path)
 {
   std::string content;
-
   std::ifstream file(path);
   content.assign((std::istreambuf_iterator<char>(file)),
                  (std::istreambuf_iterator<char>()   ));
   file.close();
 
-  encode(content);
-
-  size_t start_pos = 0;
-  while((start_pos = content.find('\n', start_pos)) != std::string::npos) {
-    content.replace(start_pos, 1, "<br/>");
-    start_pos += 5;
-  }
-
   return content;
 }
 
-void MainPage::encode(std::string & data) {
-    std::string buffer;
-    buffer.reserve(data.size());
-    for(size_t pos = 0; pos != data.size(); ++pos) {
-        switch(data[pos]) {
-            case '&':  buffer.append("&amp;");       break;
-            case '\"': buffer.append("&quot;");      break;
-            case '\'': buffer.append("&apos;");      break;
-            case '<':  buffer.append("&lt;");        break;
-            case '>':  buffer.append("&gt;");        break;
-            default:   buffer.append(&data[pos], 1); break;
-        }
-    }
-    data.swap(buffer);
-}
-
-void MainPage::displayDetail(Wt::WContainerWidget * container, const std::string & path)
+void MainPage::displayDetail(Space space, const std::vector<Document> & availableDocuments, Wt::WContainerWidget * container, int document_id)
 {
   // deletes everything from current container
   container->clear();
-  // Show similar books
-  container->addNew<Wt::WText>("<h1>" + getName(path) + "</h1>");
-  container->addNew<Wt::WText>(getDocument(path));
+  
+  // udelat to lepe, aby tu nemusely byt cesty napevno..
+  Terms collection("./../../data/persistence/docs_and_terms.db");
+  Document document = availableDocuments.at(document_id - 1);
+
+  // threshold je nyni nastaven na -1 --> ve vysledku budou i uplne rozdilne dokumenty
+  Query query(space.getTermsAndWeightsByID(collection, document.id), -1);
+  auto result = Computor(space, query).compute(collection, document.id);
+
+  // dodelat proklikavani na zobrazene podobne dokumenty
+  for (size_t i = 0; i < 10 && i < result.size(); i++) {
+    container->addNew<Wt::WText>("Document ID: " + std::to_string(result.at(i).first) + "; relevance: " + std::to_string(result.at(i).second));
+    container->addNew<Wt::WBreak>();
+  }
+
+  container->addNew<Wt::WText>("<h1>" + getName(document.name) + "</h1>");
+  auto text = Wt::cpp14::make_unique<Wt::WText>();
+  text->setTextFormat(Wt::TextFormat::Plain);
+  text->setText(getDocument(document.name));
+  container->addWidget(std::move(text));
 }
