@@ -4,8 +4,9 @@ Aplikace by měla obsahovat:
 * [X] Stemming/lematizace.
 * [x] Výpočet vah termů.
 * [x] Implementace indexovací struktury.
-* [ ] Vyhodnocení dotazu oproti indexovací struktuře.
+* [x] Vyhodnocení dotazu oproti indexovací struktuře.
+* [ ] Vyhledávání sekvenčním průchodem (bez využití indexovací struktury; [link](https://moodle-vyuka.cvut.cz/mod/page/view.php?id=71690)).
 * [ ] Webový interface (zadání dotazu a vizualizace výsledku).
 
 Work to do:
-*[ ] Structure repository according to these guidelines: https://github.com/navdeep-G/samplemod
+* [ ] Structure repository according to these guidelines: https://github.com/navdeep-G/samplemod

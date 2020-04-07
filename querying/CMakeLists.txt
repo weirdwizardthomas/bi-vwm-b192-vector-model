@@ -35,19 +35,20 @@ add_subdirectory(lib/SQLiteCpp)
 
 # Source files
 set(SOURCES
-        src/main.cpp
-        src/ui_wt/MainPage.cpp
-        src/calculation/InvertedIndex.cpp src/calculation/InvertedIndex.h
-        src/util/InvertedIndexJSONParser.cpp src/util/InvertedIndexJSONParser.h
-        src/calculation/Space.cpp src/calculation/Space.h
-        src/calculation/Query.cpp src/calculation/Query.h
         src/calculation/Computor.cpp src/calculation/Computor.h
+        src/calculation/InvertedIndex.cpp src/calculation/InvertedIndex.h
+        src/calculation/Query.cpp src/calculation/Query.h
+        src/calculation/Space.cpp src/calculation/Space.h
         src/calculation/WeightedDocument.cpp src/calculation/WeightedDocument.h
-        src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h
-        src/exceptions/Exceptions.h
         src/database/Database.cpp src/database/Database.h
+        src/database/Document.cpp src/database/Document.h
+        src/exceptions/Exceptions.h
+        src/ui/MainPage.cpp src/ui/MainPage.h
         src/util/ArgumentParser.cpp src/util/ArgumentParser.h
-        src/database/Document.cpp src/database/Document.h)
+        src/util/InvertedIndexJSONParser.cpp src/util/InvertedIndexJSONParser.h
+        src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h
+        src/main.cpp
+        )
 
 # Shared libraries
 set(LIBRARIES
@@ -57,7 +58,7 @@ set(LIBRARIES
         )
 
 # Set target
-add_executable(${TARGET_NAME} ${SOURCES} ${HEADERS})
+add_executable(${TARGET_NAME} ${SOURCES})
 
 # Link with libraries
 target_link_libraries(${TARGET_NAME} ${LIBRARIES})

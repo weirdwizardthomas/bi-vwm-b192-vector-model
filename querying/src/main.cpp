@@ -8,7 +8,7 @@
 #include "calculation/Computor.h"
 #include "util/QueryJSONParser.h"
 #include "util/InvertedIndexJSONParser.h"
-#include "src/ui_wt/MainPage.h"
+#include "src/ui/MainPage.h"
 #include "src/database/Database.h"
 #include "src/database/Document.h"
 

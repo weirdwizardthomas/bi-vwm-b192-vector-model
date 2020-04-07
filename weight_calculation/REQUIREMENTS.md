@@ -1,7 +1,7 @@
 # Požadavky
 - kompilátor podporující minimálně C++ 11
-- vytvořit adresář ```lib``` v kořenovém adresáři projektu pro následující knihovny
-- knihovna pro práci s SQLite:
+- vytvořit adresář ```lib``` v tomto adresáři pro následující knihovny
+- knihovna pro práci s databází SQLite:
   - ke stažení [ZDE](https://github.com/SRombauts/SQLiteCpp/releases)
   - rozbalit do adresáře ```lib``` a složku přejmenovat na ```SQLiteCpp```
 - knihovna pro práci s JSON soubory:
