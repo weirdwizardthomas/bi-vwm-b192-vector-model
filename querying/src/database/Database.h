@@ -1,27 +1,26 @@
-#ifndef QUERYING_DOCUMENTCOLLECTION_H
-#define QUERYING_DOCUMENTCOLLECTION_H
+#pragma once
 
+#include <SQLiteCpp/SQLiteCpp.h>
 #include <vector>
 #include <string>
 
-#include <lib/SQLiteCpp/include/SQLiteCpp/Database.h>
 #include "Document.h"
 
 /**
- * A class that handles fetching Document rows from the Document table
+ * A class that handles fetching data from database
  */
-class DocumentCollection {
+class Database {
 private:
     SQLite::Database db; /**< Database connection */
 
 public:
-    explicit DocumentCollection(const std::string &path);
+    explicit Database(const std::string &path);
 
     /**
      * Fetches the entire table Document
      * @return Vector with all rows of table Document, sorted by ID
      */
-    std::vector<Document> fetchCollection();
+    std::vector<Document> getDocumentsCollection();
 
     /**
      * Fetches a single Document row with a specific ID
@@ -29,7 +28,11 @@ public:
      * @return Document row with ID equal to ID
      */
     Document getDocumentByID(int id);
+
+    /**
+     * @brief Finds all terms from specified document
+     * @param document_id to process
+     * @return Vector with strings which are in specified document
+     */
+    std::vector<std::string> getTermsByDocumentID(int document_id);
 };
-
-
-#endif //QUERYING_DOCUMENTCOLLECTION_H

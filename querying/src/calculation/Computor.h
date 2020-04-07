@@ -9,7 +9,7 @@
 
 #include "Space.h"
 #include "Query.h"
-#include "./../database/Terms.h"
+#include "./../database/Database.h"
 
 /**
  * @brief A class that encompasses the calculation of a document's relevancy to the query
@@ -37,12 +37,11 @@ public:
     Computor(Space space, Query query);
 
     /**
-     * @brief Computes relevancies of documents to the query
-     *
-     * Filters relevancies that are below @ref Query::threshold
+     * @brief Computes relevancies of documents to the query, from results removes documents that have relevancies below @ref Query::threshold
+     * @param database, document_id Database connection and ID of current document (query)
      * @return Vector of pairs with document IDs and their similarity to the query, sorted by similarity desc
      */
-    std::vector<std::pair<int, double>> compute(Terms & collection, int document_id);
+    std::vector<std::pair<int, double>> compute(Database & database, int document_id);
 };
 
 

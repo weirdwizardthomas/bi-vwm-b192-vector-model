@@ -13,5 +13,5 @@ public:
 private:
     std::string getName(const std::string & path);
     std::string getDocument(const std::string & path);
-    void displayDetail(Space space, const std::vector<Document> & availableDocuments, Wt::WContainerWidget * container, int document_id);
+    void displayDetail(Space space, Wt::WContainerWidget * container, int document_id);
 };

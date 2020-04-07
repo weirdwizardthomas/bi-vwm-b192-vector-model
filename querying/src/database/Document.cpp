@@ -4,4 +4,5 @@
 
 using namespace std;
 
-Document::Document(const int id, string name) : id(id), name(move(name)) {}
+Document::Document(int id, string name)
+    : id(id), name(move(name)) {}

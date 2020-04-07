@@ -8,7 +8,7 @@
 
 #include "InvertedIndex.h"
 #include "Query.h"
-#include "./../database/Terms.h"
+#include "./../database/Database.h"
 
 /**
  * @brief A class representing the vector space of the collection
@@ -37,10 +37,10 @@ public:
 
     /**
      * @brief Finds all terms in DB which occurs in specific document
-     * @param collection, document_id Instance of Terms class with DB connection and document_id to process
+     * @param database, document_id Instance of DB connection and document_id to process
      * @return Map with terms as keys and weights as their values
      */
-    const std::map<std::string, double> getTermsAndWeightsByID(Terms & collection, int document_id);
+    const std::map<std::string, double> getTermsAndWeightsByID(Database & database, int document_id);
 
     /**
      * @brief Gets an element from @ref Space::terms with key @ref key

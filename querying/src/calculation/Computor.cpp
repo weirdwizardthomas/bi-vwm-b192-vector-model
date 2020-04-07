@@ -13,9 +13,9 @@ Computor::Computor(Space space, Query query)
         : space(std::move(space)),
           query(std::move(query)) {}
 
-vector<pair<int, double>> Computor::compute(Terms & collection, int document_id) {
+vector<pair<int, double>> Computor::compute(Database & database, int document_id) {
     vector<pair<int, double>> results;
-    map<string, double> currentDocument = space.getTermsAndWeightsByID(collection, document_id);
+    map<string, double> currentDocument = space.getTermsAndWeightsByID(database, document_id);
 
     availableTerms = query.termsKeyset;
 

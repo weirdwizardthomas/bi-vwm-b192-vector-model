@@ -1,6 +1,4 @@
-#ifndef QUERYING_DOCUMENT_H
-#define QUERYING_DOCUMENT_H
-
+#pragma once
 
 #include <string>
 
@@ -16,6 +14,3 @@ public:
 
     Document(int id, std::string name);
 };
-
-
-#endif //QUERYING_DOCUMENT_H

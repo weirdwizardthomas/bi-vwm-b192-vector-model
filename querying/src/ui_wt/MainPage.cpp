@@ -13,7 +13,7 @@
 #include "./../calculation/Computor.h"
 #include "./../util/QueryJSONParser.h"
 #include "./../util/InvertedIndexJSONParser.h"
-#include "./../database/DocumentCollection.h"
+#include "./../database/Database.h"
 
 #include "MainPage.h"
 
@@ -21,8 +21,8 @@ MainPage::MainPage(const Wt::WEnvironment& env)
     : Wt::WApplication(env)
 {
   Space space(InvertedIndexJSONParser("./../../data/persistence/invertedList.json").parse());
-  DocumentCollection collection("./../../data/persistence/docs_and_terms.db");
-  auto availableDocuments = collection.fetchCollection();
+  Database database("./../../data/persistence/docs_and_terms.db");
+  auto availableDocuments = database.getDocumentsCollection();
 
   auto container = root()->addWidget(Wt::cpp14::make_unique<Wt::WContainerWidget>());
   auto buttonPtr = Wt::cpp14::make_unique<Wt::WPushButton>("Show me more!");
@@ -40,15 +40,15 @@ MainPage::MainPage(const Wt::WEnvironment& env)
   container->addWidget(std::move(buttonPtr));
 
   button->clicked().connect([=] {
-    displayDetail(space, availableDocuments, container, availableDocuments.at(menu->currentIndex()).id);
+    displayDetail(space, container, availableDocuments.at(menu->currentIndex()).id);
   });
 }
 
 std::string MainPage::getName(const std::string & path)
 {
   std::string name = path;
-  name = name.substr(name.find_last_of('/') + 1);
-  name = name.substr(0, name.find_last_of('.'));
+  size_t begin = name.find_last_of('/') + 1;
+  name = name.substr(begin, name.find_last_of('.') - begin);
   name.replace(name.find("___"), 3, ": ");
 
   return name;
@@ -65,18 +65,18 @@ std::string MainPage::getDocument(const std::string & path)
   return content;
 }
 
-void MainPage::displayDetail(Space space, const std::vector<Document> & availableDocuments, Wt::WContainerWidget * container, int document_id)
+void MainPage::displayDetail(Space space, Wt::WContainerWidget * container, int document_id)
 {
   // deletes everything from current container
   container->clear();
   
   // udelat to lepe, aby tu nemusely byt cesty napevno..
-  Terms collection("./../../data/persistence/docs_and_terms.db");
-  Document document = availableDocuments.at(document_id - 1);
+  Database database("./../../data/persistence/docs_and_terms.db");
+  Document document = database.getDocumentByID(document_id);
 
   // threshold je nyni nastaven na -1 --> ve vysledku budou i uplne rozdilne dokumenty
-  Query query(space.getTermsAndWeightsByID(collection, document.id), -1);
-  auto result = Computor(space, query).compute(collection, document.id);
+  Query query(space.getTermsAndWeightsByID(database, document.id), -1);
+  auto result = Computor(space, query).compute(database, document.id);
 
   // dodelat proklikavani na zobrazene podobne dokumenty
   for (size_t i = 0; i < 10 && i < result.size(); i++) {

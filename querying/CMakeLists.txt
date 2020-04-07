@@ -45,8 +45,7 @@ set(SOURCES
         src/calculation/WeightedDocument.cpp src/calculation/WeightedDocument.h
         src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h
         src/exceptions/Exceptions.h
-        src/database/Terms.cpp src/database/Terms.h
-        src/database/DocumentCollection.cpp src/database/DocumentCollection.h
+        src/database/Database.cpp src/database/Database.h
         src/util/ArgumentParser.cpp src/util/ArgumentParser.h
         src/database/Document.cpp src/database/Document.h)
 

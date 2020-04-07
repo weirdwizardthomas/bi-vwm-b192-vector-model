@@ -1,7 +1,6 @@
 #include <iostream>
 #include <map>
 
-//#include <QApplication>
 #include <src/util/ArgumentParser.h>
 
 #include "calculation/Query.h"
@@ -9,9 +8,8 @@
 #include "calculation/Computor.h"
 #include "util/QueryJSONParser.h"
 #include "util/InvertedIndexJSONParser.h"
-//#include "src/ui/forms/mainform.h"
 #include "src/ui_wt/MainPage.h"
-#include "src/database/DocumentCollection.h"
+#include "src/database/Database.h"
 #include "src/database/Document.h"
 
 using namespace std;
@@ -50,16 +48,6 @@ int main(int argc, char *argv[]) {
     DocumentCollection collection(argumentParser.getDatabasePath());
 
     auto availableDocuments = collection.fetchCollection();
-    //Start UI
-    QApplication application(argc, argv);
-
-    MainForm mainForm;
-    mainForm
-            .setAvailableDocuments(availableDocuments)
-            .setOpenedDocument(availableDocuments.front());
-    mainForm.show();
-
-    return QApplication::exec();
     */
 }
 

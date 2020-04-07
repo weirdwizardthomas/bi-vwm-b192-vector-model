@@ -18,9 +18,9 @@ InvertedIndex &Space::getInvertedIndexByKey(const string &key) {
     return terms.at(key);
 }
 
-const map<string, double> Space::getTermsAndWeightsByID(Terms & collection, int document_id) {
+const map<string, double> Space::getTermsAndWeightsByID(Database & database, int document_id) {
     map<string, double> terms;
-    vector<string> dummy = collection.getTermsByDocumentID(document_id);
+    vector<string> dummy = database.getTermsByDocumentID(document_id);
 
     for (string term : dummy) {
         InvertedIndex tmp = getInvertedIndexByKey(term);
