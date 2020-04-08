@@ -76,7 +76,7 @@ void MainPage::displayDetail(Space space, Wt::WContainerWidget * container, int 
 
   // threshold je nyni nastaven na -1 --> ve vysledku budou i uplne rozdilne dokumenty
   Query query(space.getTermsAndWeightsByID(database, document.id), -1);
-  auto result = Computor(space, query).compute(database, document.id);
+  auto result = Computor(space, query).compute(database);
 
   // dodelat proklikavani na zobrazene podobne dokumenty
   for (size_t i = 0; i < 10 && i < result.size(); i++) {

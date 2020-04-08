@@ -13,15 +13,21 @@ Computor::Computor(Space space, Query query)
         : space(std::move(space)),
           query(std::move(query)) {}
 
-vector<pair<int, double>> Computor::compute(Database & database, int document_id) {
+vector<pair<int, double>> Computor::compute(Database & database) {
     vector<pair<int, double>> results;
-    map<string, double> currentDocument = space.getTermsAndWeightsByID(database, document_id);
+    map<string, double> computedDocument;
 
     availableTerms = query.termsKeyset;
 
+    double vectorQuerySize;
+    for (const auto & entry : query.terms)
+        vectorQuerySize += entry.second * entry.second;
+
     while (!availableTerms.empty()) {
         int ID = nextID(); //get lowest ID
-        double result = 0, denominator = 0, tmp = 0;
+        double result = 0, denominator = 0;
+        // hrozne zpomaluje beh programu (v radu sekund!!) --> vymyslet jine reseni...
+        computedDocument = space.getTermsAndWeightsByID(database, ID);
 
         for (const auto &term: availableTerms) /*Go through all the remaining terms*/ {
             try {
@@ -37,13 +43,10 @@ vector<pair<int, double>> Computor::compute(Database & database, int document_id
             }
         }
 
-        for (const auto & entry : query.terms)
+        for (const auto & entry : computedDocument)
             denominator += entry.second * entry.second;
         
-        for (const auto & entry : currentDocument)
-            tmp += entry.second * entry.second;
-
-        denominator = sqrt(denominator * tmp);
+        denominator = sqrt(denominator * vectorQuerySize);
         // Input should not be zero vector but if it is, do not divide and "just" return wrong result..
         if (denominator != 0)
             result = result / denominator;

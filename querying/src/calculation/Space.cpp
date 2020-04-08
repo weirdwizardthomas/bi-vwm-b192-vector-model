@@ -22,7 +22,7 @@ const map<string, double> Space::getTermsAndWeightsByID(Database & database, int
     map<string, double> terms;
     vector<string> dummy = database.getTermsByDocumentID(document_id);
 
-    for (string term : dummy) {
+    for (const string & term : dummy) {
         InvertedIndex tmp = getInvertedIndexByKey(term);
         terms[term] = tmp.getDocumentWeightByID(document_id);
     }

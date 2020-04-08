@@ -38,10 +38,10 @@ public:
 
     /**
      * @brief Computes relevancies of documents to the query, from results removes documents that have relevancies below @ref Query::threshold
-     * @param database, document_id Database connection and ID of current document (query)
+     * @param database Database connection
      * @return Vector of pairs with document IDs and their similarity to the query, sorted by similarity desc
      */
-    std::vector<std::pair<int, double>> compute(Database & database, int document_id);
+    std::vector<std::pair<int, double>> compute(Database & database);
 };
 
 
