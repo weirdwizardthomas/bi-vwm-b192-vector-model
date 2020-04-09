@@ -2,6 +2,7 @@
 
 #include <SQLiteCpp/SQLiteCpp.h>
 #include <vector>
+#include <map>
 #include <string>
 
 #include "Document.h"
@@ -35,4 +36,10 @@ public:
      * @return Vector with strings which are in specified document
      */
     std::vector<std::string> getTermsByDocumentID(int document_id);
+
+    /**
+     * @brief Computes size of vector for every document in database
+     * @return Map with document_id as key and size of vector as value
+     */
+    std::map<int, double> getVectorSizes();
 };

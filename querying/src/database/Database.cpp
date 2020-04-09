@@ -11,7 +11,7 @@ vector<Document> Database::getDocumentsCollection() {
     vector<Document> result;
 
     while (query.executeStep())
-        result.emplace_back(query.getColumn("id"), query.getColumn("filename"));
+        result.emplace_back(query.getColumn(0), query.getColumn(1));
 
     return result;
 }
@@ -21,7 +21,7 @@ Document Database::getDocumentByID(int id) {
     query.bind(":document_id", id);
     query.executeStep();
 
-    return {id, query.getColumn("filename")};
+    return {id, query.getColumn(0)};
 }
 
 vector<string> Database::getTermsByDocumentID(int document_id) {
@@ -32,7 +32,19 @@ vector<string> Database::getTermsByDocumentID(int document_id) {
     query.bind(":id", document_id);
 
     while(query.executeStep())
-        terms.emplace_back(query.getColumn("value"));
+        terms.emplace_back(query.getColumn(0));
 
     return terms;
+}
+
+map<int, double> Database::getVectorSizes() {
+    map<int, double> vectorSizes;
+    SQLite::Statement query(db, "SELECT Document_id, weight FROM TermDocumentOccurrence");
+
+    while(query.executeStep()) {
+        double tmp = query.getColumn(1);
+        vectorSizes[query.getColumn(0)] += tmp * tmp;
+    }
+
+    return vectorSizes;
 }

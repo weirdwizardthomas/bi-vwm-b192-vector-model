@@ -15,7 +15,7 @@ Computor::Computor(Space space, Query query)
 
 vector<pair<int, double>> Computor::compute(Database & database) {
     vector<pair<int, double>> results;
-    map<string, double> computedDocument;
+    map<int, double> vectorSizes = database.getVectorSizes();
 
     availableTerms = query.termsKeyset;
 
@@ -26,8 +26,6 @@ vector<pair<int, double>> Computor::compute(Database & database) {
     while (!availableTerms.empty()) {
         int ID = nextID(); //get lowest ID
         double result = 0, denominator = 0;
-        // hrozne zpomaluje beh programu (v radu sekund!!) --> vymyslet jine reseni...
-        computedDocument = space.getTermsAndWeightsByID(database, ID);
 
         for (const auto &term: availableTerms) /*Go through all the remaining terms*/ {
             try {
@@ -43,10 +41,7 @@ vector<pair<int, double>> Computor::compute(Database & database) {
             }
         }
 
-        for (const auto & entry : computedDocument)
-            denominator += entry.second * entry.second;
-        
-        denominator = sqrt(denominator * vectorQuerySize);
+        denominator = sqrt(vectorSizes[ID] * vectorQuerySize);
         // Input should not be zero vector but if it is, do not divide and "just" return wrong result..
         if (denominator != 0)
             result = result / denominator;
