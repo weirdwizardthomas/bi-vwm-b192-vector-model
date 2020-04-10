@@ -31,11 +31,11 @@ public:
     Document getDocumentByID(int id);
 
     /**
-     * @brief Finds all terms from specified document
+     * @brief Finds all terms and their weights from specified document
      * @param document_id to process
-     * @return Vector with strings which are in specified document
+     * @return Map with terms as keys and weights as their values
      */
-    std::vector<std::string> getTermsByDocumentID(int document_id);
+    std::map<std::string, double> getTermsAndWightsByDocumentID(int document_id);
 
     /**
      * @brief Computes size of vector for every document in database

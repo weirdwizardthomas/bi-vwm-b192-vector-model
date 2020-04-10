@@ -3,7 +3,6 @@
 
 
 #include <string>
-#include <set>
 #include <map>
 
 #include "InvertedIndex.h"
@@ -34,13 +33,6 @@ public:
      * @return Value of @ref Space::terms at @ref key
      */
     InvertedIndex &getInvertedIndexByKey(const std::string &key);
-
-    /**
-     * @brief Finds all terms in DB which occurs in specific document
-     * @param database, document_id Instance of DB connection and document_id to process
-     * @return Map with terms as keys and weights as their values
-     */
-    const std::map<std::string, double> getTermsAndWeightsByID(Database & database, int document_id);
 
     /**
      * @brief Gets an element from @ref Space::terms with key @ref key

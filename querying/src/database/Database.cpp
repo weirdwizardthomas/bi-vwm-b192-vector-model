@@ -24,17 +24,18 @@ Document Database::getDocumentByID(int id) {
     return {id, query.getColumn(0)};
 }
 
-vector<string> Database::getTermsByDocumentID(int document_id) {
-    vector<string> terms;  
-    SQLite::Statement query(db, "SELECT Term.value FROM Term "
+map<string, double> Database::getTermsAndWightsByDocumentID(int document_id) {
+    map<string, double> termsAndWeights;
+    SQLite::Statement query(db, "SELECT Term.value, TermDocumentOccurrence.weight FROM Term "
                                 "JOIN TermDocumentOccurrence ON Term.id = TermDocumentOccurrence.Term_id "
                                 "WHERE TermDocumentOccurrence.Document_id = :id");
     query.bind(":id", document_id);
 
-    while(query.executeStep())
-        terms.emplace_back(query.getColumn(0));
+    while(query.executeStep()) {
+        termsAndWeights[query.getColumn(0)] = query.getColumn(1);
+    }
 
-    return terms;
+    return termsAndWeights;
 }
 
 map<int, double> Database::getVectorSizes() {

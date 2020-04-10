@@ -17,15 +17,3 @@ const InvertedIndex &Space::operator[](const string &key) const {
 InvertedIndex &Space::getInvertedIndexByKey(const string &key) {
     return terms.at(key);
 }
-
-const map<string, double> Space::getTermsAndWeightsByID(Database & database, int document_id) {
-    map<string, double> terms;
-    vector<string> dummy = database.getTermsByDocumentID(document_id);
-
-    for (const string & term : dummy) {
-        InvertedIndex tmp = getInvertedIndexByKey(term);
-        terms[term] = tmp.getDocumentWeightByID(document_id);
-    }
-
-    return terms;
-}
