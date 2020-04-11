@@ -31,9 +31,8 @@ map<string, double> Database::getTermsAndWightsByDocumentID(int document_id) {
                                 "WHERE TermDocumentOccurrence.Document_id = :id");
     query.bind(":id", document_id);
 
-    while(query.executeStep()) {
+    while(query.executeStep())
         termsAndWeights[query.getColumn(0)] = query.getColumn(1);
-    }
 
     return termsAndWeights;
 }

@@ -32,7 +32,7 @@ public:
 
     /**
      * @brief Finds all terms and their weights from specified document
-     * @param document_id to process
+     * @param document_id Document's ID to process
      * @return Map with terms as keys and weights as their values
      */
     std::map<std::string, double> getTermsAndWightsByDocumentID(int document_id);

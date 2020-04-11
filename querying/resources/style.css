@@ -1,15 +1,17 @@
 body {
   background-image: url("background.png");
   font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
   color: #19222a;
   text-align: center;
   margin: 0;
 }
 
 button {
-  font-size: 25px;
+  font-size: 20px;
   margin: 25px;
   padding: 5px;
+  width: 250px;
 }
 
 .navigation {
@@ -38,4 +40,8 @@ button {
 .navigation > .itemselected > a {
   color: #ffffff;
   background-color: #0088cc;
+}
+
+.similar {
+  width: 1000px;
 }
