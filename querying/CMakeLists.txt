@@ -43,7 +43,7 @@ set(SOURCES
         src/database/Database.cpp src/database/Database.h
         src/database/Document.cpp src/database/Document.h
         src/exceptions/Exceptions.h
-        src/ui/MainPage.cpp src/ui/MainPage.h
+        src/ui/Page.cpp src/ui/Page.h
         src/util/ArgumentParser.cpp src/util/ArgumentParser.h
         src/util/InvertedIndexJSONParser.cpp src/util/InvertedIndexJSONParser.h
         src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h

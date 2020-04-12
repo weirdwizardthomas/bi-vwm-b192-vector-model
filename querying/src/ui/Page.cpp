@@ -7,9 +7,9 @@
 #include "./../calculation/Query.h"
 #include "./../calculation/Computor.h"
 #include "./../util/InvertedIndexJSONParser.h"
-#include "MainPage.h"
+#include "Page.h"
 
-MainPage::MainPage(const Wt::WEnvironment& env)
+Page::Page(const Wt::WEnvironment& env)
     : Wt::WApplication(env),
       database("./../../data/persistence/docs_and_terms.db"),
       space(InvertedIndexJSONParser("./../../data/persistence/invertedList.json").parse())
@@ -19,7 +19,7 @@ MainPage::MainPage(const Wt::WEnvironment& env)
   displayMainPage();
 }
 
-void MainPage::displayMainPage()
+void Page::displayMainPage()
 {
   container->clear();
 
@@ -42,7 +42,7 @@ void MainPage::displayMainPage()
   });
 }
 
-std::string MainPage::getName(const std::string & path)
+std::string Page::getName(const std::string & path)
 {
   std::string name;
   size_t begin = path.find_last_of('/') + 1;
@@ -52,7 +52,7 @@ std::string MainPage::getName(const std::string & path)
   return name;
 }
 
-std::string MainPage::getContent(const std::string & path)
+std::string Page::getContent(const std::string & path)
 {
   std::string content;
   std::ifstream file(path);
@@ -63,7 +63,7 @@ std::string MainPage::getContent(const std::string & path)
   return content;
 }
 
-void MainPage::displayDetail(int document_id)
+void Page::displayDetail(int document_id)
 {
   container->clear();
 

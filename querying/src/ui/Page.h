@@ -9,10 +9,10 @@
 #include "./../database/Document.h"
 #include "./../calculation/Space.h"
 
-class MainPage : public Wt::WApplication
+class Page : public Wt::WApplication
 {
 public:
-    MainPage(const Wt::WEnvironment& env);
+    Page(const Wt::WEnvironment& env);
 
 private:
     Database database;

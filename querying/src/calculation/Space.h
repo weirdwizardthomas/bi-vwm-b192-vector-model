@@ -6,8 +6,6 @@
 #include <map>
 
 #include "InvertedIndex.h"
-#include "Query.h"
-#include "./../database/Database.h"
 
 /**
  * @brief A class representing the vector space of the collection
