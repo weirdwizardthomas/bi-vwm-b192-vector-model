@@ -1,0 +1,47 @@
+body {
+  background-image: url("background.png");
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #19222a;
+  text-align: center;
+  margin: 0;
+}
+
+button {
+  font-size: 20px;
+  margin: 25px;
+  padding: 5px;
+  width: 250px;
+}
+
+.navigation {
+  width: 700px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.navigation a {
+  display: block;
+  background-color: #ffffff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.navigation a:hover {
+  background-color: #dcdcdc;
+}
+
+.navigation > li > a {
+  border-radius: 5px;
+  margin-top: 3px;
+}
+
+.navigation > .itemselected > a {
+  color: #ffffff;
+  background-color: #0088cc;
+}
+
+.similar {
+  width: 1000px;
+}

@@ -16,6 +16,7 @@ CREATE TABLE TermDocumentOccurrence
     Term_id     INTEGER UNSIGNED NOT NULL,
     Document_id INTEGER UNSIGNED NOT NULL,
     count       INTEGER UNSIGNED NOT NULL,
+    weight      DOUBLE,
     FOREIGN KEY (Document_id) REFERENCES Document (id),
     FOREIGN KEY (Term_id) REFERENCES Term (id),
     UNIQUE (Term_id, Document_id) ON CONFLICT REPLACE
