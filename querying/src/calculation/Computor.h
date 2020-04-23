@@ -1,7 +1,3 @@
-//
-// Created by tomas on 3/23/20.
-//
-
 #ifndef QUERYING_COMPUTOR_H
 #define QUERYING_COMPUTOR_H
 

@@ -1,7 +1,3 @@
-//
-// Created by tomas on 3/24/20.
-//
-
 #ifndef QUERYING_WEIGHTEDDOCUMENT_H
 #define QUERYING_WEIGHTEDDOCUMENT_H
 

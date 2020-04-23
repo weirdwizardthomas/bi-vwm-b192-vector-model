@@ -1,7 +1,3 @@
-//
-// Created by TomTom on 28.03.2020.
-//
-
 #include "QueryJSONParser.h"
 
 using namespace std;

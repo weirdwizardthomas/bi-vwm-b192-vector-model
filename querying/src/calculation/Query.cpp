@@ -1,7 +1,3 @@
-//
-// Created by tomas on 3/23/20.
-//
-
 #include "Query.h"
 
 using namespace std;

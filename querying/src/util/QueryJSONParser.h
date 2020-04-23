@@ -1,7 +1,3 @@
-//
-// Created by TomTom on 28.03.2020.
-//
-
 #ifndef QUERYING_QUERYJSONPARSER_H
 #define QUERYING_QUERYJSONPARSER_H
 

@@ -1,7 +1,3 @@
-//
-// Created by tomas on 3/24/20.
-//
-
 #include "WeightedDocument.h"
 
 WeightedDocument::WeightedDocument(int id, double weight)
