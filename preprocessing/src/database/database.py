@@ -45,6 +45,10 @@ class Database:
         return self.cursor.lastrowid
 
     def drop(self):
+        """
+        Deletes all data from tables
+        :return: None
+        """
         self.execute('DELETE FROM TermDocumentOccurrence')
         self.execute('DELETE FROM Term')
         self.execute('DELETE FROM Document')

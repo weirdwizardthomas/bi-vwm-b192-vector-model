@@ -1,3 +1,5 @@
+# author : koristo1@fit.cvut.cz
+
 from nltk.corpus import stopwords
 
 

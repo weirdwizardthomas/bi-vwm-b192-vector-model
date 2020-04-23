@@ -1,3 +1,5 @@
+# author: koristo1@fit.cvut.cz
+
 import json
 import os
 import nltk
@@ -82,7 +84,7 @@ class Preprocessor:
         """
         Reads a document from file and processes it into terms and their frequencies
         :param file_path: path to the document to open
-        :return: tuple of document path & dictionary of terms and their frequencies
+        :return: None
         """
         self.terms = {}  # reset
         try:

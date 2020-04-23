@@ -1,3 +1,4 @@
+# author : koristo1@fit.cvut.cz
 import argparse
 
 from src.preprocessor import preprocess_collection
