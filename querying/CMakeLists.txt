@@ -26,9 +26,6 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-# Instruct CMake to run moc automatically when needed
-set(CMAKE_AUTOMOC ON)
-
 # Add subdirectory SQLiteCpp with all necessary files
 add_subdirectory(lib/SQLiteCpp)
 

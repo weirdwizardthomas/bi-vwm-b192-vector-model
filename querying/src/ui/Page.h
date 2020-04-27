@@ -12,7 +12,7 @@
 class Page : public Wt::WApplication
 {
 public:
-    Page(const Wt::WEnvironment& env);
+    Page(const Wt::WEnvironment& env, const std::string & dbPath, const std::string & invertedIndexPath);
 
 private:
     Database database;

@@ -9,10 +9,10 @@
 #include "./../util/InvertedIndexJSONParser.h"
 #include "Page.h"
 
-Page::Page(const Wt::WEnvironment& env)
+Page::Page(const Wt::WEnvironment& env, const std::string & dbPath, const std::string & invertedIndexPath)
     : Wt::WApplication(env),
-      database("./../../data/persistence/docs_and_terms.db"),
-      space(InvertedIndexJSONParser("./../../data/persistence/invertedList.json").parse())
+      database(dbPath),
+      space(InvertedIndexJSONParser(invertedIndexPath).parse())
 {
   availableDocuments = database.getDocumentsCollection();
   container = root()->addWidget(Wt::cpp14::make_unique<Wt::WContainerWidget>());
