@@ -32,11 +32,11 @@ vector<pair<int, double>> Computor::compute(Database & database) {
 
             double documentWeight = space.getInvertedIndexByKey(term).getDocumentWeightByID(ID);
 
-            if (documentWeight == EInvertedIndex::IDNotFound)
+            if (documentWeight == EInvertedIndex::IDNotFound) //inverted index does not contain given ID
                 continue;
 
             if (documentWeight == EInvertedIndex::EndOfIndex) {
-                availableTerms.erase(term);
+                availableTerms.erase(term); //remove term from further computation
                 continue;
             }
 
