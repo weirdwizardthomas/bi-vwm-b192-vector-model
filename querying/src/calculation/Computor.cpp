@@ -5,6 +5,7 @@
 #include <cmath>
 
 #include "Computor.h"
+#include "../enum/EInvertedIndex.h"
 #include "../exceptions/Exceptions.h"
 
 using namespace std;
@@ -28,17 +29,19 @@ vector<pair<int, double>> Computor::compute(Database & database) {
         double result = 0, denominator = 0;
 
         for (const auto &term: availableTerms) /*Go through all the remaining terms*/ {
-            try {
-                double documentWeight = space.getInvertedIndexByKey(term).getDocumentWeightByID(ID);
-                double queryWeight = query.terms.at(term);
-                result += documentWeight * queryWeight;
-            }
-            catch (const IDNotFoundException &e) {//inverted index does not contain given ID
+
+            double documentWeight = space.getInvertedIndexByKey(term).getDocumentWeightByID(ID);
+
+            if (documentWeight == EInvertedIndex::IDNotFound)
+                continue;
+
+            if (documentWeight == EInvertedIndex::EndOfIndex) {
+                availableTerms.erase(term);
+                continue;
             }
 
-            catch (const EndOfIndexException &e) {
-                availableTerms.erase(term); //exhaust term
-            }
+            double queryWeight = query.terms.at(term);
+            result += documentWeight * queryWeight;
         }
 
         denominator = sqrt(vectorSizes[ID] * vectorQuerySize);
@@ -50,7 +53,7 @@ vector<pair<int, double>> Computor::compute(Database & database) {
             results.emplace_back(make_pair(ID, result));
     }
 
-    sort(results.begin(), results.end(), [] (const pair<int, double> & a, const pair<int, double> & b)
+    std::sort(results.begin(), results.end(), [] (const pair<int, double> & a, const pair<int, double> & b)
                                          { return a.second > b.second; });
 
     return results;
