@@ -3,5 +3,5 @@
  */
 
 enum EInvertedIndex {
-    EndOfIndex = 5, IDNotFound
+    EndOfIndex = -5, IDNotFound
 };
