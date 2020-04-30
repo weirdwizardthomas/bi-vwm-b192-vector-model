@@ -4,8 +4,5 @@
 - knihovna pro práci s databází SQLite:
   - ke stažení [ZDE](https://github.com/SRombauts/SQLiteCpp/releases)
   - rozbalit do adresáře ```lib``` a složku přejmenovat na ```SQLiteCpp```
-- knihovna pro práci s JSON soubory:
-  - ke stažení [ZDE](https://github.com/nlohmann/json/releases)
-  - stačí stáhnout hlavičkový soubor ```json.hpp``` a umístit ho do adresáře ```lib```
 - pro sestavení lze využít skript ```build.sh```
-- binárka se poté nachází v ```build/main```, je nutné ji spustit z adresáře ```build```
+- pro spuštění lze využít skript ```run.sh```

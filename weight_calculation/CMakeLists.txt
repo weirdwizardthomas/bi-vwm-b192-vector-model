@@ -9,6 +9,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Add subdirectory SQLiteCpp with all necessary files
 add_subdirectory(lib/SQLiteCpp)
 
-add_executable(main src/main.cpp)
+add_executable(weight_calculation src/main.cpp)
 
-target_link_libraries(main SQLiteCpp)
+target_link_libraries(weight_calculation SQLiteCpp)
