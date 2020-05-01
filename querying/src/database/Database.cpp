@@ -6,7 +6,7 @@ Database::Database(const string &path)
     : db(path) {}
 
 vector<Document> Database::getDocumentsCollection() {
-    SQLite::Statement query(db, "SELECT id, filename FROM Document");
+    SQLite::Statement query(db, "SELECT id, filename FROM Document ORDER BY filename ASC");
 
     vector<Document> result;
 

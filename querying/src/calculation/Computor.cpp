@@ -6,7 +6,6 @@
 
 #include "Computor.h"
 #include "../enum/EInvertedIndex.h"
-#include "../exceptions/Exceptions.h"
 
 using namespace std;
 

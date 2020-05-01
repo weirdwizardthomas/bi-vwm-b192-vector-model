@@ -1,7 +1,6 @@
 #include "InvertedIndex.h"
 
 #include "../enum/EInvertedIndex.h"
-#include "../exceptions/Exceptions.h"
 
 using namespace std;
 
