@@ -42,6 +42,7 @@ private:
     /**
      * @brief Displays page with document content and similar documents
      * @param document_id ID of document to display
+     * @param useInvertedIndex bool that determines if should be inverted index used on search for similar documents
      */
-    void displayDetail(int document_id);
+    void displayDetail(int document_id, bool useInvertedIndex);
 };

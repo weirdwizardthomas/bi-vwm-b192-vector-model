@@ -9,9 +9,17 @@ body {
 
 button {
   font-size: 20px;
-  margin: 25px;
+  margin: 10px;
   padding: 5px;
   width: 250px;
+}
+
+label {
+  font-size: 20px;
+}
+
+input {
+  margin: 30px 10px 0px 0px;
 }
 
 .navigation {

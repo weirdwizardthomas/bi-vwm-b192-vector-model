@@ -35,6 +35,7 @@ set(SOURCES
         src/calculation/Computor.cpp src/calculation/Computor.h
         src/calculation/InvertedIndex.cpp src/calculation/InvertedIndex.h
         src/calculation/Query.cpp src/calculation/Query.h
+        src/calculation/SequentialSearch.cpp src/calculation/SequentialSearch.h
         src/calculation/Space.cpp src/calculation/Space.h
         src/calculation/WeightedDocument.cpp src/calculation/WeightedDocument.h
         src/database/Database.cpp src/database/Database.h

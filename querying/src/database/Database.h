@@ -32,14 +32,22 @@ public:
 
     /**
      * @brief Finds all terms and their weights from specified document
-     * @param document_id Document's ID to process
+     * @param documentID Document's ID to process
      * @return Map with terms as keys and weights as their values
      */
-    std::map<std::string, double> getTermsAndWightsByDocumentID(int document_id);
+    std::map<std::string, double> getTermsAndWightsByDocumentID(int documentID);
 
     /**
      * @brief Computes size of vector for every document in database
      * @return Map with document_id as key and size of vector as value
      */
     std::map<int, double> getVectorSizes();
+
+    /**
+     * @brief Gets weights of terms which are in both given documents
+     * @param queryDocumentID ID of document which is used as query
+     * @param documentID ID of compared document
+     * @return Vector of pairs, first is weight of term from document which is used as query, second is weight of term from compared document
+     */
+    std::vector<std::pair<double, double>> getTermsWeights(int queryDocumentID, int documentID);
 };
