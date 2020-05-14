@@ -10,4 +10,4 @@ Projekt se skládá ze tří oddělených aplikací:
 3) `querying/` (dotazování na podobnost dokumentů z webového rozhraní)
 
 ## Požadavky na běh
-Jsou popsány u každé konkrétní aplikace v souboru `REQUIREMENTS.md` spolu s informacemi, odkud stáhnout a kam případně umístit knihovny třetích stran.
+Požadavky na běh jsou popsány u každé konkrétní aplikace v souboru `REQUIREMENTS.md` spolu s informacemi, odkud stáhnout a kam případně umístit knihovny třetích stran. Nachází se zde i informace, jakým způsobem lze danou aplikaci spustit.

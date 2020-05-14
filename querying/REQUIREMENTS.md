@@ -10,4 +10,5 @@
 - knihovna Wt pro webové GUI:
   - ke stažení [ZDE](https://www.webtoolkit.eu/wt/download)
   - pro nějaké linuxové distibuce jsou dostupné balíčky, případně stáhnout z výše uvedeného odkazu a nainstalovat    
-- pro sestavení a spuštění aplikace lze využít skript ```run.sh```
+- pro sestavení lze využít skript ```build.sh```
+- pro spuštění aplikace lze využít skript ```run.sh```, který spustí aplikaci lokálně na zabudovaném HTTP serveru (libwthttp)
