@@ -4,6 +4,7 @@
 #include <Wt/WPushButton.h>
 
 #include <fstream>
+#include <chrono>
 
 #include "./../calculation/Query.h"
 #include "./../calculation/Computor.h"
@@ -81,6 +82,7 @@ void Page::displayDetail(int document_id, bool useInvertedIndex)
 
   std::vector<std::pair<int, double>> result;
 
+  auto start = std::chrono::high_resolution_clock::now();
   if (useInvertedIndex) {
     // threshold je nyni nastaven na -1 --> ve vysledku budou i uplne rozdilne dokumenty
     Query query(database.getTermsAndWightsByDocumentID(document_id), -1);
@@ -89,7 +91,10 @@ void Page::displayDetail(int document_id, bool useInvertedIndex)
   else {
     result = SequentialSearch::search(database, document_id);
   }
+  auto stop = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 
+  container->addNew<Wt::WText>("<i>Query took " + std::to_string(duration.count()*0.000001) + " seconds</i>");
   container->addNew<Wt::WText>("<h1>The most similar books</h1>");
   
   Wt::WMenu *menu = container->addNew<Wt::WMenu>();
