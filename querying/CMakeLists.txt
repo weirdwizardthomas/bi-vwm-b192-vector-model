@@ -42,9 +42,7 @@ set(SOURCES
         src/database/Document.cpp src/database/Document.h
         src/enum/EInvertedIndex.h
         src/ui/Page.cpp src/ui/Page.h
-        src/util/ArgumentParser.cpp src/util/ArgumentParser.h
         src/util/InvertedIndexJSONParser.cpp src/util/InvertedIndexJSONParser.h
-        src/util/QueryJSONParser.cpp src/util/QueryJSONParser.h
         src/main.cpp
         )
 

@@ -10,7 +10,4 @@
 - knihovna Wt pro webové GUI:
   - ke stažení [ZDE](https://www.webtoolkit.eu/wt/download)
   - pro nějaké linuxové distibuce jsou dostupné balíčky, případně stáhnout z výše uvedeného odkazu a nainstalovat    
-- knihovna pro parsování argumentů z příkazové řádky:
-  - ke stažení [ZDE](https://github.com/jarro2783/cxxopts/releases)
-  - stačí umístit hlavičkový soubor ```cxxopts.hpp``` do adresáře ```lib```
 - pro sestavení a spuštění aplikace lze využít skript ```run.sh```
